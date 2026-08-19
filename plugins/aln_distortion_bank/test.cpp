@@ -81,7 +81,7 @@ int main() {
     const _NT_factory* factory = reinterpret_cast<const _NT_factory*>(
         pluginEntry(kNT_selector_factoryInfo, 0)
     );
-    if (factory == NULL || factory->guid != NT_MULTICHAR('A', 'd', 'B', '1'))
+    if (factory == NULL || factory->guid != NT_MULTICHAR('T', 'h', 'D', 'b'))
         return fail("factory metadata");
     if (std::string(factory->name) != "ALN Distortion Bank")
         return fail("factory name");

@@ -42,7 +42,7 @@ int main() {
     const _NT_factory* factory = reinterpret_cast<const _NT_factory*>(
         pluginEntry(kNT_selector_factoryInfo, 0)
     );
-    if (factory == NULL || factory->guid != NT_MULTICHAR('A', 'f', 'T', '1'))
+    if (factory == NULL || factory->guid != NT_MULTICHAR('T', 'h', 'W', 'f'))
         return fail("factory metadata");
     if (std::string(factory->name) != "ALN Fold Wavefolder")
         return fail("factory name");
