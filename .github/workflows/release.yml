@@ -1,0 +1,60 @@
+name: Build and release plug-ins
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install ARM toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-dev zip unzip
+
+      - name: Show tool versions
+        run: |
+          c++ --version
+          arm-none-eabi-g++ --version
+          arm-none-eabi-nm --version
+          arm-none-eabi-readelf --version
+
+      - name: Test, build, and inspect both plug-ins
+        run: make verify
+
+      - name: Package separate Gallery assets
+        run: |
+          make package
+          sha256sum release/*
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: aln-disting-nt-plug-ins
+          path: release/*
+          if-no-files-found: error
+
+      - name: Create GitHub release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            release/aln_fold_wavefolder.o
+            release/aln_distortion_bank.o
+            release/aln-fold-wavefolder.zip
+            release/aln-distortion-bank.zip
+          generate_release_notes: true
+          fail_on_unmatched_files: true
