@@ -44,7 +44,7 @@ int main() {
     );
     if (factory == NULL || factory->guid != NT_MULTICHAR('T', 'h', 'W', 'f'))
         return fail("factory metadata");
-    if (std::string(factory->name) != "ALN Fold Wavefolder")
+    if (std::string(factory->name) != "ALN Fold")
         return fail("factory name");
 
     _NT_algorithmRequirements requirements = {};

@@ -152,7 +152,7 @@ void step(_NT_algorithm* self, float* busFrames, int numFramesBy4) {
 
 static const _NT_factory kFactory = {
     .guid = NT_MULTICHAR('T', 'h', 'W', 'f'),
-    .name = "ALN Fold Wavefolder",
+    .name = "ALN Fold",
     .description = "Selectable learned Buchla and 16-fold wavefolders",
     .numSpecifications = 0,
     .specifications = NULL,

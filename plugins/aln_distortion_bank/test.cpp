@@ -83,7 +83,7 @@ int main() {
     );
     if (factory == NULL || factory->guid != NT_MULTICHAR('T', 'h', 'D', 'b'))
         return fail("factory metadata");
-    if (std::string(factory->name) != "ALN Distortion Bank")
+    if (std::string(factory->name) != "ALN Distort")
         return fail("factory name");
     _NT_algorithmRequirements requirements = {};
     factory->calculateRequirements(requirements, NULL);

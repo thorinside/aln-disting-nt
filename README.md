@@ -5,8 +5,8 @@ circuit simulations:
 
 | Plug-in | GUID | What it does | Release file |
 | --- | --- | --- | --- |
-| [ALN Fold Wavefolder](plugins/aln_fold_wavefolder/README.md) | `ThWf` | Selectable Buchla 259-style and extended 16-fold wavefolders | `aln_fold_wavefolder.o` |
-| [ALN Distortion Bank](plugins/aln_distortion_bank/README.md) | `ThDb` | Eight circuit-inspired distortion models | `aln_distortion_bank.o` |
+| [ALN Fold](plugins/aln_fold_wavefolder/README.md) | `ThWf` | Selectable Buchla 259-style and extended 16-fold wavefolders | `aln_fold_wavefolder.o` |
+| [ALN Distort](plugins/aln_distortion_bank/README.md) | `ThDb` | Eight circuit-inspired distortion models | `aln_distortion_bank.o` |
 
 The learned tables are checked into this repository. The disting NT does not
 train a model or run Python: each audio sample follows a small fixed decision

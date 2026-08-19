@@ -1,6 +1,6 @@
-# ALN Fold Wavefolder
+# ALN Fold
 
-ALN Fold Wavefolder has two selectable transfer curves: a Buchla 259-style
+ALN Fold has two selectable transfer curves: a Buchla 259-style
 five-cell circuit model and an extended eight-cell model. The first produces
 eight turning points across a -5 V to +5 V sweep; the second produces sixteen.
 
@@ -24,5 +24,4 @@ smoothed, model changes are crossfaded, and the folded branch uses first-order
 antiderivative antialiasing.
 
 The plug-in requires disting NT firmware 1.15 or later. Install
-`aln_fold_wavefolder.o` under `/programs/plug-ins/`; it appears as **ALN Fold
-Wavefolder**.
+`aln_fold_wavefolder.o` under `/programs/plug-ins/`; it appears as **ALN Fold**.

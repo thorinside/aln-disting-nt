@@ -211,7 +211,7 @@ void step(_NT_algorithm* self, float* busFrames, int numFramesBy4) {
 
 static const _NT_factory kFactory = {
     .guid = NT_MULTICHAR('T', 'h', 'D', 'b'),
-    .name = "ALN Distortion Bank",
+    .name = "ALN Distort",
     .description = "Eight learned analog-circuit distortions",
     .numSpecifications = 0,
     .specifications = NULL,

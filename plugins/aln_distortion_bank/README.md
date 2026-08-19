@@ -1,6 +1,6 @@
-# ALN Distortion Bank
+# ALN Distort
 
-ALN Distortion Bank contains eight static circuit models learned from separate
+ALN Distort contains eight static circuit models learned from separate
 ngspice sweeps:
 
 - Silicon Soft
@@ -32,4 +32,4 @@ Add mode, other algorithms can still push the final shared bus past that range.
 
 The plug-in requires disting NT firmware 1.15 or later. Install
 `aln_distortion_bank.o` under `/programs/plug-ins/`; it appears as **ALN
-Distortion Bank**.
+Distort**.

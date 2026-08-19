@@ -30,8 +30,8 @@ package_plugin() {
     cp "$build_dir/$object_name" "$release_dir/$object_name"
 }
 
-package_plugin "aln_fold_wavefolder.o" "aln-fold-wavefolder" "ALN Fold Wavefolder"
-package_plugin "aln_distortion_bank.o" "aln-distortion-bank" "ALN Distortion Bank"
+package_plugin "aln_fold_wavefolder.o" "aln-fold-wavefolder" "ALN Fold"
+package_plugin "aln_distortion_bank.o" "aln-distortion-bank" "ALN Distort"
 
 rm -rf -- "$staging_dir"
 unzip -l "$release_dir/aln-fold-wavefolder.zip"
