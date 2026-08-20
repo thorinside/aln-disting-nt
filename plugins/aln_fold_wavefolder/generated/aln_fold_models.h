@@ -25,6 +25,9 @@ struct AffineLeaf {
 struct FoldModelData {
     const DTreeNode* nodes;
     const AffineLeaf* leaves;
+    const float* thresholds;
+    const float* coefficients;
+    uint16_t hingeCount;
     uint16_t rootRef;
     uint16_t nodeCount;
     uint16_t leafCount;
@@ -60,6 +63,21 @@ static const AffineLeaf kBuchla259Leaves[9] = {
     {5.12922621f, -12.230937f, -34.0349541f},
     {-5.33674049f, 19.1146336f, -80.9749451f},
     {4.39208317f, -20.578968f, 0.0f},
+};
+
+static const float kBuchla259Thresholds[4] = {
+    0.600000024f,
+    1.79999995f,
+    2.99499989f,
+    4.07999992f,
+};
+
+static const float kBuchla259Coefficients[5] = {
+    4.998703f,
+    -9.99666309f,
+    10.1271858f,
+    -10.4659662f,
+    9.72882366f,
 };
 
 static const DTreeNode kSixteenFoldNodes[16] = {
@@ -101,9 +119,62 @@ static const AffineLeaf kSixteenFoldLeaves[17] = {
     {9.4135952f, -48.873745f, 0.0f},
 };
 
+static const float kSixteenFoldThresholds[8] = {
+    0.314999998f,
+    0.94749999f,
+    1.56500006f,
+    2.19000006f,
+    2.78500009f,
+    3.45499992f,
+    4.08500004f,
+    4.72249985f,
+};
+
+static const float kSixteenFoldCoefficients[9] = {
+    9.58439064f,
+    -19.106781f,
+    19.0556374f,
+    -19.1962643f,
+    19.077322f,
+    -19.1948452f,
+    19.1495819f,
+    -19.1143837f,
+    19.1589375f,
+};
+
 static const FoldModelData kFoldModels[kFoldModelCount] = {
-    {kBuchla259Nodes, kBuchla259Leaves, 0u, 8u, 9u, 4u, -5.0f, 5.0f, 0.0f, 1.0f, 1.59688544f},
-    {kSixteenFoldNodes, kSixteenFoldLeaves, 0u, 16u, 17u, 5u, -5.0f, 5.0f, 0.0f, 1.0f, 1.13172269f},
+    {
+        kBuchla259Nodes,
+        kBuchla259Leaves,
+        kBuchla259Thresholds,
+        kBuchla259Coefficients,
+        4u,
+        0u,
+        8u,
+        9u,
+        4u,
+        -5.0f,
+        5.0f,
+        0.0f,
+        1.0f,
+        1.59688544f,
+    },
+    {
+        kSixteenFoldNodes,
+        kSixteenFoldLeaves,
+        kSixteenFoldThresholds,
+        kSixteenFoldCoefficients,
+        8u,
+        0u,
+        16u,
+        17u,
+        5u,
+        -5.0f,
+        5.0f,
+        0.0f,
+        1.0f,
+        1.13172269f,
+    },
 };
 
 }  // namespace aln_fold

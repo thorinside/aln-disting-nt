@@ -49,7 +49,7 @@ int main() {
 
     _NT_algorithmRequirements requirements = {};
     factory->calculateRequirements(requirements, NULL);
-    if (requirements.numParameters != 7u || requirements.sram == 0u)
+    if (requirements.numParameters != 9u || requirements.sram == 0u)
         return fail("requirements");
     std::vector<uint64_t> alignedSram((requirements.sram + 7u) / 8u);
     _NT_algorithmMemoryPtrs pointers = {};
@@ -64,6 +64,91 @@ int main() {
         || std::string(algorithm->parameters[6].enumStrings[1]) != "16-fold"
     )
         return fail("Model enum contract");
+    if (
+        algorithm->parameters[7].def != 0
+        || algorithm->parameters[7].min != 0
+        || algorithm->parameters[7].max != 1000
+        || algorithm->parameters[7].unit != kNT_unitPercent
+        || algorithm->parameters[7].scaling != kNT_scaling10
+    )
+        return fail("Coeff rotate parameter contract");
+    if (
+        algorithm->parameters[8].def != 1
+        || algorithm->parameters[8].unit != kNT_unitEnum
+        || std::string(algorithm->parameters[8].enumStrings[0]) != "Off"
+        || std::string(algorithm->parameters[8].enumStrings[1]) != "On"
+    )
+        return fail("Level comp parameter contract");
+
+    for (uint8_t model = 0u; model < aln_fold::kFoldModelCount; ++model) {
+        bool transferChanged = false;
+        for (int rotationIndex = 0; rotationIndex <= 20; ++rotationIndex) {
+            const float rotation = rotationIndex / 20.0f;
+            float rotatedPeak = 0.0f;
+            for (int index = 0; index <= 4096; ++index) {
+                const float input = 5.0f * index / 4096.0f;
+                const float positive = aln_fold::evaluateRotatedFold(
+                    input,
+                    1.0f,
+                    model,
+                    rotation,
+                    1.0f
+                );
+                const float negative = aln_fold::evaluateRotatedFold(
+                    -input,
+                    1.0f,
+                    model,
+                    rotation,
+                    1.0f
+                );
+                if (!near(negative, -positive, 2.0e-4f))
+                    return fail("rotated transfer odd symmetry");
+                if (!std::isfinite(positive))
+                    return fail("rotated transfer finite output");
+                rotatedPeak = std::max(rotatedPeak, fabsf(positive));
+                if (rotationIndex == 5 && !near(
+                        positive,
+                        aln_fold::evaluateFoldDTree(input, 1.0f, model),
+                        1.0e-2f
+                    ))
+                    transferChanged = true;
+            }
+            if (rotatedPeak < 4.99f || rotatedPeak > 5.001f)
+                return fail("compensated rotated transfer level");
+        }
+        if (!transferChanged)
+            return fail("coefficient rotation must change the transfer");
+
+        for (int foldIndex = 0; foldIndex <= 4; ++foldIndex) {
+            const float fold = foldIndex * 0.25f;
+            for (int index = 0; index <= 1000; ++index) {
+                const float input = -5.0f + 10.0f * index / 1000.0f;
+                const float original = aln_fold::evaluateFoldDTree(
+                    input,
+                    fold,
+                    model
+                );
+                const float rotationStart = aln_fold::evaluateRotatedFold(
+                    input,
+                    fold,
+                    model,
+                    0.0f,
+                    1.0f
+                );
+                const float rotationEnd = aln_fold::evaluateRotatedFold(
+                    input,
+                    fold,
+                    model,
+                    1.0f,
+                    1.0f
+                );
+                if (!near(rotationStart, original, 2.0e-4f))
+                    return fail("zero rotation compatibility");
+                if (!near(rotationEnd, rotationStart, 2.0e-4f))
+                    return fail("coefficient rotation closed cycle");
+            }
+        }
+    }
 
     float previousOutput = aln_fold::evaluateFoldDTree(-5.0f, 1.0f);
     float previousDelta = 0.0f;
@@ -120,7 +205,7 @@ int main() {
     if (audioPeakToPeak < 9.7f || audioPeakToPeak > 10.1f)
         return fail("antialiased 100 Hz output level");
 
-    int16_t values[] = {1, 13, 1, 100, 100, 0, 1};
+    int16_t values[] = {1, 13, 1, 100, 100, 0, 1, 0, 1};
     algorithm->v = values;
     algorithm->vIncludingCommon = values;
 
@@ -182,7 +267,6 @@ int main() {
     values[2] = 1;
     values[3] = 100;
     values[4] = 100;
-    values[6] = 1;
     for (int block = 0; block < 200; ++block) {
         for (int index = 0; index < frames; ++index) buses[index] = 1.25f;
         factory->step(algorithm, buses.data(), frames / 4);
@@ -212,11 +296,65 @@ int main() {
         ))
         return fail("Buchla model selection result");
 
+    float rotationMaximumStep = 0.0f;
+    values[7] = 500;
+    for (int block = 0; block < 400; ++block) {
+        for (int index = 0; index < frames; ++index) buses[index] = 1.25f;
+        factory->step(algorithm, buses.data(), frames / 4);
+        for (int index = 0; index < frames; ++index) {
+            rotationMaximumStep = std::max(
+                rotationMaximumStep,
+                fabsf(buses[outputOffset + index] - previous)
+            );
+            previous = buses[outputOffset + index];
+        }
+    }
+    if (rotationMaximumStep > 0.05f)
+        return fail("Coeff rotate smoothing discontinuity");
+    const float compensatedRotationOutput = aln_fold::evaluateRotatedFold(
+        1.25f,
+        1.0f,
+        aln_fold::kBuchla259Model,
+        0.5f,
+        1.0f
+    );
+    if (!near(previous, compensatedRotationOutput, 2.0e-3f)) {
+        std::cerr << "settled Coeff rotate output: " << previous
+                  << ", target: " << compensatedRotationOutput << "\n";
+        return fail("Coeff rotate settled result");
+    }
+
+    values[8] = 0;
+    for (int block = 0; block < 100; ++block) {
+        for (int index = 0; index < frames; ++index) buses[index] = 1.25f;
+        factory->step(algorithm, buses.data(), frames / 4);
+    }
+    previous = buses[outputOffset + frames - 1];
+    const float uncompensatedRotationOutput = aln_fold::evaluateRotatedFold(
+        1.25f,
+        1.0f,
+        aln_fold::kBuchla259Model,
+        0.5f,
+        0.0f
+    );
+    if (!near(previous, uncompensatedRotationOutput, 1.0e-2f)) {
+        std::cerr << "settled Level comp output: " << previous
+                  << ", target: " << uncompensatedRotationOutput << "\n";
+        return fail("Level comp settled result");
+    }
+    if (near(
+            uncompensatedRotationOutput,
+            compensatedRotationOutput,
+            1.0e-2f
+        ))
+        return fail("Level comp must change rotated output level");
+
     std::cout << "PASS: API, zero-Fold identity, 10 Vpp input / 10 Vpp output full Fold ("
               << "Buchla " << buchlaTurns << " turns, 16-fold " << foldTurns
               << " turns, " << foldedPeak
               << " V direct peak, " << audioPeakToPeak
-              << " Vpp antialiased at 100 Hz), Low-pass default Off, smoothing, replace, add, and click-safe Model enum; Fold step "
-              << maximumStep << " V, Model step " << modelSwitchMaximumStep << " V\n";
+              << " Vpp antialiased at 100 Hz), Low-pass default Off, coefficient rotation, level compensation, smoothing, replace, add, and click-safe Model enum; Fold step "
+              << maximumStep << " V, Model step " << modelSwitchMaximumStep
+              << " V, Coeff rotate step " << rotationMaximumStep << " V\n";
     return 0;
 }

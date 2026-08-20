@@ -15,11 +15,14 @@ enum Parameter {
     kParamMix,
     kParamLowPass,
     kParamModel,
+    kParamCoefficientRotate,
+    kParamLevelCompensation,
     kParameterCount,
 };
 
 static char const* const kLowPassNames[] = {"Off", "On"};
 static char const* const kModelNames[] = {"Buchla 259", "16-fold"};
+static char const* const kLevelCompensationNames[] = {"Off", "On"};
 
 static const _NT_parameter kParameters[] = {
     NT_PARAMETER_AUDIO_INPUT("Input", 1, 1)
@@ -60,6 +63,24 @@ static const _NT_parameter kParameters[] = {
         .scaling = 0,
         .enumStrings = kModelNames,
     },
+    {
+        .name = "Coeff rotate",
+        .min = 0,
+        .max = 1000,
+        .def = 0,
+        .unit = kNT_unitPercent,
+        .scaling = kNT_scaling10,
+        .enumStrings = NULL,
+    },
+    {
+        .name = "Level comp",
+        .min = 0,
+        .max = 1,
+        .def = 1,
+        .unit = kNT_unitEnum,
+        .scaling = 0,
+        .enumStrings = kLevelCompensationNames,
+    },
 };
 
 static_assert(
@@ -75,6 +96,8 @@ static const uint8_t kMainPageParameters[] = {
     kParamMix,
     kParamLowPass,
     kParamModel,
+    kParamCoefficientRotate,
+    kParamLevelCompensation,
 };
 
 static const _NT_parameterPage kParameterPage[] = {
@@ -96,6 +119,8 @@ struct Algorithm : public _NT_algorithm {
     aln_fold::FoldSmoother fold;
     aln_fold::ModelCrossfader model;
     aln_fold::OnePole filter;
+    aln_fold::ControlSmoother coefficientRotation;
+    aln_fold::ControlSmoother levelCompensation;
 };
 
 void calculateRequirements(
@@ -119,6 +144,14 @@ _NT_algorithm* construct(
     algorithm->parameterPages = &kParameterPages;
     algorithm->fold.initialise(static_cast<float>(NT_globals.sampleRate));
     algorithm->model.initialise(static_cast<float>(NT_globals.sampleRate));
+    algorithm->coefficientRotation.initialise(
+        static_cast<float>(NT_globals.sampleRate),
+        2.0f
+    );
+    algorithm->levelCompensation.initialise(
+        static_cast<float>(NT_globals.sampleRate)
+    );
+    algorithm->levelCompensation.reset(1.0f);
     algorithm->filter.setCutoff(1326.0f, static_cast<float>(NT_globals.sampleRate));
     return algorithm;
 }
@@ -137,12 +170,27 @@ void step(_NT_algorithm* self, float* busFrames, int numFramesBy4) {
     const uint8_t selectedModel = algorithm->v[kParamModel] == 0
         ? aln_fold::kBuchla259Model
         : aln_fold::kSixteenFoldModel;
+    const float targetRotation = algorithm->v[kParamCoefficientRotate] * 0.001f;
+    const float targetLevelCompensation =
+        algorithm->v[kParamLevelCompensation] != 0 ? 1.0f : 0.0f;
 
     for (int frame = 0; frame < numFrames; ++frame) {
         const float dry = input[frame];
         const float modelInput = aln_fold::clamp(dry, -5.0f, 5.0f);
         const float fold = algorithm->fold.process(targetFold);
-        float wet = algorithm->model.process(modelInput, fold, selectedModel);
+        const float rotation = algorithm->coefficientRotation.process(
+            targetRotation
+        );
+        const float levelCompensation = algorithm->levelCompensation.process(
+            targetLevelCompensation
+        );
+        float wet = algorithm->model.process(
+            modelInput,
+            fold,
+            selectedModel,
+            rotation,
+            levelCompensation
+        );
         const float filtered = algorithm->filter.process(wet);
         if (lowPassEnabled) wet = filtered;
         const float contribution = dry + mix * (wet - dry);
@@ -153,7 +201,7 @@ void step(_NT_algorithm* self, float* busFrames, int numFramesBy4) {
 static const _NT_factory kFactory = {
     .guid = NT_MULTICHAR('T', 'h', 'W', 'f'),
     .name = "ALN Fold",
-    .description = "Selectable learned Buchla and 16-fold wavefolders",
+    .description = "Learned wavefolders with coefficient rotation",
     .numSpecifications = 0,
     .specifications = NULL,
     .calculateStaticRequirements = NULL,
