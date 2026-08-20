@@ -26,9 +26,19 @@ ngspice sweeps:
 - **Low-pass** — optional fixed 6 kHz one-pole output filter; default Off.
 
 Circuit changes use a 10 ms crossfade. Each model has first-order antiderivative
-antialiasing and a 5 Hz DC blocker, so this is an audio effect rather than a
-precision DC/CV waveshaper. The plug-in contribution is limited to +/-5 V. In
-Add mode, other algorithms can still push the final shared bus past that range.
+antialiasing and DC rejection, so this is an audio effect rather than a
+precision DC/CV waveshaper. A final limiter-safe 5 Hz DC rejector removes offset
+created by asymmetric limiting while keeping the plug-in contribution within
++/-5 V. Drive 0% and Mix 0% remain transparent. In Add mode, only this plug-in's
+contribution is DC-filtered and limited; other algorithms can still push the
+final shared bus past that range.
+
+The host audio test exercises the real plug-in entry point in 128-sample blocks.
+It settles and captures every circuit at 30 Hz, 100 Hz, and 1 kHz across five
+Drive points from 25% to 800% and all three Bias extremes. It also covers 50%
+Mix, 200% Level, both bypass paths, low-pass, and Add routing. The generated CSV
+records DC, RMS, peak, fundamental, residual, and THD+N measurements for
+comparison between revisions.
 
 The plug-in requires disting NT firmware 1.15 or later. Install
 `aln_distortion_bank.o` under `/programs/plug-ins/`; it appears as **ALN

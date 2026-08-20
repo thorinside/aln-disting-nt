@@ -135,6 +135,7 @@ struct Algorithm : public _NT_algorithm {
     aln_distortion::ControlSmoother level;
     aln_distortion::DistortionBank bank;
     aln_distortion::OnePole filter;
+    aln_distortion::BoundedDcBlocker outputDcBlocker;
 };
 
 void calculateRequirements(
@@ -163,6 +164,7 @@ _NT_algorithm* construct(
     algorithm->level.initialise(sampleRate);
     algorithm->bank.initialise(sampleRate);
     algorithm->filter.setCutoff(6000.0f, sampleRate);
+    algorithm->outputDcBlocker.initialise(sampleRate);
     return algorithm;
 }
 
@@ -200,10 +202,24 @@ void step(_NT_algorithm* self, float* busFrames, int numFramesBy4) {
         const float filtered = algorithm->filter.process(wet);
         if (lowPassEnabled) wet = filtered;
         const float mixed = dry + mix * (wet - dry);
-        const float contribution = aln_distortion::clamp(
+        const float limitedContribution = aln_distortion::clamp(
             level * mixed,
             -5.0f,
             5.0f
+        );
+        const float dcBlocked = algorithm->outputDcBlocker.process(
+            limitedContribution,
+            5.0f
+        );
+        // Keep the true bypass endpoints exact, then bring the sub-audio
+        // rejector fully in over the first quarter of the wet-excitation range.
+        const float dcRemovalAmount = aln_distortion::clamp(
+            4.0f * mix * drive,
+            0.0f,
+            1.0f
+        );
+        const float contribution = limitedContribution + dcRemovalAmount * (
+            dcBlocked - limitedContribution
         );
         output[frame] = replace ? contribution : output[frame] + contribution;
     }

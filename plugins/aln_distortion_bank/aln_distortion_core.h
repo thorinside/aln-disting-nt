@@ -140,6 +140,33 @@ struct DcBlocker {
     }
 };
 
+struct BoundedDcBlocker {
+    float dcEstimate;
+    float coefficient;
+    bool initialised;
+
+    BoundedDcBlocker()
+        : dcEstimate(0.0f), coefficient(0.0f), initialised(false) {}
+
+    void initialise(float sampleRate, float cutoffHz = 5.0f) {
+        coefficient = 1.0f - expf(
+            -2.0f * 3.14159265358979323846f * cutoffHz / sampleRate
+        );
+    }
+
+    float process(float input, float limit) {
+        if (!initialised) {
+            dcEstimate = input;
+            initialised = true;
+            return 0.0f;
+        }
+        dcEstimate += coefficient * (input - dcEstimate);
+        const float centred = input - dcEstimate;
+        const float headroom = limit / (limit + fabsf(dcEstimate));
+        return centred * headroom;
+    }
+};
+
 struct ModelState {
     Antialiaser antialiaser;
     DcBlocker dcBlocker;
@@ -187,11 +214,13 @@ struct DistortionBank {
         const float driven = inputGain * (input + biasV);
         float shaped[kDistortionModelCount];
         for (uint8_t model = 0; model < kDistortionModelCount; ++model) {
-            const float circuit = states[model].dcBlocker.process(
-                states[model].antialiaser.process(driven, model)
+            const float limited = clamp(
+                states[model].antialiaser.process(driven, model),
+                -5.0f,
+                5.0f
             );
-            const float limited = clamp(circuit, -5.0f, 5.0f);
-            shaped[model] = input + wetAmount * (limited - input);
+            const float circuit = states[model].dcBlocker.process(limited);
+            shaped[model] = input + wetAmount * (circuit - input);
         }
         return shaped[previousModel]
             + blend * (shaped[currentModel] - shaped[previousModel]);

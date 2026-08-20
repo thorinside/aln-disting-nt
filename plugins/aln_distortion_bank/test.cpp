@@ -232,8 +232,42 @@ int main() {
             return fail("add-mode dry result");
     }
 
+    setParameter(values, 2, 1);
+    setParameter(values, 3, 6);
+    setParameter(values, 4, 800);
+    setParameter(values, 5, -100);
+    setParameter(values, 6, 100);
+    setParameter(values, 7, 100);
+    setParameter(values, 8, 0);
+    int dcSample = 0;
+    for (int block = 0; block < 375; ++block) {
+        for (int index = 0; index < frames; ++index, ++dcSample) {
+            buses[index] = 5.0f * sinf(
+                2.0f * 3.14159265358979323846f * 100.0f * dcSample / 48000.0f
+            );
+        }
+        factory->step(algorithm, buses.data(), frames / 4);
+    }
+    double dcSum = 0.0;
+    for (int block = 0; block < 750; ++block) {
+        for (int index = 0; index < frames; ++index, ++dcSample) {
+            buses[index] = 5.0f * sinf(
+                2.0f * 3.14159265358979323846f * 100.0f * dcSample / 48000.0f
+            );
+        }
+        factory->step(algorithm, buses.data(), frames / 4);
+        for (int index = 0; index < frames; ++index)
+            dcSum += buses[outputOffset + index];
+    }
+    const float residualDc = static_cast<float>(dcSum / (750 * frames));
+    if (fabsf(residualDc) > 0.02f) {
+        std::cerr << "measured residual DC: " << residualDc << " V\n";
+        return fail("post-limiter DC rejection");
+    }
+
     std::cout << "PASS: API v13, eight circuit enum, 10 Vpp learned ranges, 0-800% Drive with 100% compatibility and full-plugin slam response, Drive identity, Bias/Level contracts, replace/add routing, and click-safe switching; maximum switch step "
               << maximumSwitchStep << " V; slam difference "
-              << slamDifferenceRms << " V RMS\n";
+              << slamDifferenceRms << " V RMS; residual DC "
+              << residualDc << " V\n";
     return 0;
 }

@@ -23,12 +23,13 @@ ARM_FLAGS := -std=c++11 $(ARM_ARCH) -Os -fPIC -ffunction-sections \
 
 FOLD_TEST := $(BUILD_DIR)/test_aln_fold_wavefolder
 DISTORTION_TEST := $(BUILD_DIR)/test_aln_distortion_bank
+DISTORTION_AUDIO_TEST := $(BUILD_DIR)/audio_test_aln_distortion_bank
 FOLD_COMPILED := $(BUILD_DIR)/aln_fold_wavefolder_compiled.o
 DISTORTION_COMPILED := $(BUILD_DIR)/aln_distortion_bank_compiled.o
 FOLD_OBJECT := $(BUILD_DIR)/aln_fold_wavefolder.o
 DISTORTION_OBJECT := $(BUILD_DIR)/aln_distortion_bank.o
 
-.PHONY: all check-api test hardware inspect verify package clean
+.PHONY: all check-api test audio-test hardware inspect verify package clean
 
 all: verify
 
@@ -51,7 +52,16 @@ $(DISTORTION_TEST): $(DISTORTION_DIR)/test.cpp $(DISTORTION_DIR)/aln_distortion_
 	$(HOST_CXX) $(HOST_FLAGS) -I"$(API_INCLUDE)" -I"$(DISTORTION_DIR)" \
 		$(DISTORTION_DIR)/test.cpp $(DISTORTION_DIR)/aln_distortion_bank.cpp -o "$@"
 
-test: $(FOLD_TEST) $(DISTORTION_TEST)
+$(DISTORTION_AUDIO_TEST): $(DISTORTION_DIR)/audio_test.cpp \
+		$(DISTORTION_DIR)/aln_distortion_bank.cpp $(DISTORTION_DIR)/aln_distortion_core.h \
+		$(DISTORTION_DIR)/generated/aln_distortion_models.h | check-api $(BUILD_DIR)
+	$(HOST_CXX) $(HOST_FLAGS) -I"$(API_INCLUDE)" -I"$(DISTORTION_DIR)" \
+		$(DISTORTION_DIR)/audio_test.cpp $(DISTORTION_DIR)/aln_distortion_bank.cpp -o "$@"
+
+audio-test: $(DISTORTION_AUDIO_TEST)
+	./$(DISTORTION_AUDIO_TEST) "$(BUILD_DIR)/aln_distortion_audio_metrics.csv"
+
+test: $(FOLD_TEST) $(DISTORTION_TEST) audio-test
 	./$(FOLD_TEST)
 	./$(DISTORTION_TEST)
 
