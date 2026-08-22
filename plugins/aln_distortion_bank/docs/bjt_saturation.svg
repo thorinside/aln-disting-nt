@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title description">
+  <title id="title">BJT Saturation · long-tailed pair teacher</title>
+  <desc id="description">An ngspice long-tailed NPN differential pair driven by plus and minus half the input voltage, with ten kilohm collector loads, 2.2 kilohm emitter degeneration, a one milliamp tail, and a differential output.</desc>
+  <defs>
+    <style>
+
+      .background { fill: #f7f5ef; }
+      .panel { fill: #ffffff; stroke: #d8d3c7; stroke-width: 2; }
+      .wire { fill: none; stroke: #273136; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .control { fill: none; stroke: #688899; stroke-width: 2; stroke-dasharray: 7 6; }
+      .node { fill: #273136; }
+      .nodebox { fill: #273136; stroke: #273136; stroke-width: 2; }
+      .passive { fill: #fffaf0; stroke: #273136; stroke-width: 2; }
+      .active { fill: #fff0dd; stroke: #ad5a23; stroke-width: 3; }
+      .source { fill: #e9f4f7; stroke: #2f718c; stroke-width: 3; }
+      .supply { fill: #a43b32; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #202528; }
+      .subtitle { font: 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .label { font: 600 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #252b2f; }
+      .value { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #4f585d; }
+      .node-label { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #ffffff; }
+      .note { font: 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #596268; }
+      .tablehead { fill: #e9f4f7; stroke: #b8cbd2; stroke-width: 2; }
+      .tablerow { fill: #fffdfa; stroke: #ddd7ca; stroke-width: 1; }
+
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f718c"/>
+    </marker>
+  </defs>
+  <rect class="background" width="1200" height="720" rx="24"/>
+  <rect class="panel" x="24" y="24" width="1152" height="672" rx="18"/>
+  <text class="title" x="58" y="70">BJT Saturation · long-tailed pair teacher</text>
+  <text class="subtitle" x="58" y="98">Exact documentation view of models/bjt_saturation.cir</text>
+  <line class="wire" x1="430" y1="125" x2="770" y2="125"/>
+  <circle class="supply" cx="600" cy="125" r="8"/>
+  <text class="label" x="620" y="118" fill="#a43b32">VCC +12 V</text>
+  <line class="wire" x1="500" y1="566" x2="700" y2="566"/>
+  <circle class="supply" cx="600" cy="566" r="8"/>
+  <text class="label" x="620" y="584" fill="#a43b32">VEE −12 V</text>
+  <line x1="70" y1="330" x2="165" y2="330" stroke="#2f718c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text class="label" x="70" y="293" fill="#2f718c">VINPUT</text>
+  <text class="value" x="70" y="315">DC −5…+5 V</text>
+  <rect class="source" x="182.0" y="213.0" width="176" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="270" y="236">EPLUS</text>
+  <text class="value" text-anchor="middle" x="270" y="256">+0.5 × Vin</text>
+  <rect class="source" x="842.0" y="383.0" width="176" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="930" y="406">EMINUS</text>
+  <text class="value" text-anchor="middle" x="930" y="426">−0.5 × Vin</text>
+  <line class="control" x1="165" y1="330" x2="270" y2="240"/>
+  <line class="control" x1="165" y1="330" x2="930" y2="410"/>
+  <rect class="nodebox" x="243.0" y="505" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="270" y="524">0</text>
+  <rect class="nodebox" x="973.0" y="505" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="1000" y="524">0</text>
+  <line class="wire" x1="270" y1="240" x2="270" y2="520"/>
+  <line class="wire" x1="930" y1="410" x2="1000" y2="520"/>
+  <rect class="nodebox" x="376.0" y="305" width="58" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="405" y="324">bplus</text>
+  <rect class="nodebox" x="762.0" y="305" width="66" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="795" y="324">bminus</text>
+  <line class="wire" x1="270" y1="240" x2="405" y2="320"/>
+  <line class="wire" x1="930" y1="410" x2="795" y2="320"/>
+  <rect class="active" x="437.0" y="293.0" width="126" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="500" y="316">Q1</text>
+  <text class="value" text-anchor="middle" x="500" y="336">QNPN</text>
+  <rect class="active" x="637.0" y="293.0" width="126" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="700" y="316">Q2</text>
+  <text class="value" text-anchor="middle" x="700" y="336">QNPN</text>
+  <line class="wire" x1="405" y1="320" x2="500" y2="320"/>
+  <line class="wire" x1="795" y1="320" x2="700" y2="320"/>
+  <rect class="nodebox" x="473.0" y="220" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="500" y="239">c1</text>
+  <rect class="nodebox" x="673.0" y="220" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="700" y="239">c2</text>
+  <rect class="nodebox" x="473.0" y="390" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="500" y="409">e1</text>
+  <rect class="nodebox" x="673.0" y="390" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="700" y="409">e2</text>
+  <line class="wire" x1="500" y1="320" x2="500" y2="235"/>
+  <line class="wire" x1="500" y1="320" x2="500" y2="405"/>
+  <line class="wire" x1="700" y1="320" x2="700" y2="235"/>
+  <line class="wire" x1="700" y1="320" x2="700" y2="405"/>
+  <rect class="passive" x="440.0" y="143.0" width="120" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="500" y="166">RC1</text>
+  <text class="value" text-anchor="middle" x="500" y="186">10 kΩ</text>
+  <rect class="passive" x="640.0" y="143.0" width="120" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="700" y="166">RC2</text>
+  <text class="value" text-anchor="middle" x="700" y="186">10 kΩ</text>
+  <line class="wire" x1="500" y1="235" x2="500" y2="170"/>
+  <line class="wire" x1="500" y1="170" x2="500" y2="125"/>
+  <line class="wire" x1="700" y1="235" x2="700" y2="170"/>
+  <line class="wire" x1="700" y1="170" x2="700" y2="125"/>
+  <rect class="nodebox" x="563.0" y="495" width="74" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="600" y="514">emitter</text>
+  <rect class="passive" x="437.0" y="438.0" width="126" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="500" y="461">RE1</text>
+  <text class="value" text-anchor="middle" x="500" y="481">2.2 kΩ</text>
+  <rect class="passive" x="637.0" y="438.0" width="126" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="700" y="461">RE2</text>
+  <text class="value" text-anchor="middle" x="700" y="481">2.2 kΩ</text>
+  <line class="wire" x1="500" y1="405" x2="500" y2="465"/>
+  <line class="wire" x1="500" y1="465" x2="600" y2="510"/>
+  <line class="wire" x1="700" y1="405" x2="700" y2="465"/>
+  <line class="wire" x1="700" y1="465" x2="600" y2="510"/>
+  <rect class="source" x="535.0" y="525.0" width="130" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="600" y="548">ITAIL</text>
+  <text class="value" text-anchor="middle" x="600" y="568">1 mA</text>
+  <line class="wire" x1="600" y1="510" x2="600" y2="552"/>
+  <line class="wire" x1="600" y1="552" x2="600" y2="566"/>
+  <rect class="source" x="855.0" y="188.0" width="210" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="960" y="211">EOUT</text>
+  <text class="value" text-anchor="middle" x="960" y="231">0.5 × (Vc2 − Vc1)</text>
+  <rect class="nodebox" x="1073.0" y="200" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="1100" y="219">out</text>
+  <line x1="1127.0" y1="215" x2="1191.0" y2="215" stroke="#2f718c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text class="label" x="1137.0" y="202" fill="#2f718c">teacher output</text>
+  <line class="control" x1="500" y1="235" x2="960" y2="215"/>
+  <line class="control" x1="700" y1="235" x2="960" y2="215"/>
+  <line class="wire" x1="960" y1="215" x2="1100" y2="215"/>
+  <line class="wire" x1="960" y1="215" x2="1000" y2="520"/>
+  <text class="note" x="58" y="608">QNPN: Is=10 fA, Bf=200, Vaf=100 V, Cje=5 pF, Cjc=3 pF.</text>
+  <text class="note" x="58" y="629">EOUT reads the differential collector voltage without loading the pair.</text>
+  <text class="note" x="58" y="650">Teacher sweep: VINPUT = −5…+5 V in 2.5 mV steps; output is V(out).</text>
+</svg>

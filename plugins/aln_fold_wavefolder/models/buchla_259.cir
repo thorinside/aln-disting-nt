@@ -1,0 +1,41 @@
+* DAFx-17 Buchla 259-style wavefolder, ideal rail-limited op-amps
+VINPUT in 0 DC 0 SIN(0 5 100)
+R1IN in n1 10k
+R1FB op1 n1 100k
+B1OP op1 0 V=6*tanh(-1e6*V(n1)/6)
+R2IN in n2 49.9k
+R2FB op2 n2 100k
+B2OP op2 0 V=6*tanh(-1e6*V(n2)/6)
+R3IN in n3 91k
+R3FB op3 n3 100k
+B3OP op3 0 V=6*tanh(-1e6*V(n3)/6)
+R4IN in n4 30k
+R4FB op4 n4 100k
+B4OP op4 0 V=6*tanh(-1e6*V(n4)/6)
+R5IN in n5 68k
+R5FB op5 n5 100k
+B5OP op5 0 V=6*tanh(-1e6*V(n5)/6)
+RLOW4 n4 nlow 68k
+RLOW5 n5 nlow 33k
+RLOWIN in nlow 240k
+RFLOW v7 nlow 24.9k
+BLOW v7 0 V=15*tanh(-1e6*V(nlow)/15)
+RUP1 n1 nup 100k
+RUP2 n2 nup 43.2k
+RUP3 n3 nup 56k
+RUP7 v7 nup 24.9k
+RFUP out nup 1.2meg
+COUT out nup 100p
+BUP out 0 V=15*tanh(-1e6*V(nup)/15)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT 0 5 0.0025
+wrdata buchla_source_dc.tsv v(in) v(out)
+reset
+tran 2u 50m
+wrdata buchla_source_transient.tsv v(in) v(out)
+quit
+.endc
+.end

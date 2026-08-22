@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 920" role="img" aria-labelledby="title description">
+  <title id="title">Buchla 259-style · five-cell SPICE teacher</title>
+  <desc id="description">A five-cell Buchla 259-style ngspice wavefolder with non-identical rail-limited inverter cells feeding weighted lower and upper summing stages.</desc>
+  <defs>
+    <style>
+
+      .background { fill: #f7f5ef; }
+      .panel { fill: #ffffff; stroke: #d8d3c7; stroke-width: 2; }
+      .wire { fill: none; stroke: #273136; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .control { fill: none; stroke: #688899; stroke-width: 2; stroke-dasharray: 7 6; }
+      .node { fill: #273136; }
+      .nodebox { fill: #273136; stroke: #273136; stroke-width: 2; }
+      .passive { fill: #fffaf0; stroke: #273136; stroke-width: 2; }
+      .active { fill: #fff0dd; stroke: #ad5a23; stroke-width: 3; }
+      .source { fill: #e9f4f7; stroke: #2f718c; stroke-width: 3; }
+      .supply { fill: #a43b32; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #202528; }
+      .subtitle { font: 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .label { font: 600 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #252b2f; }
+      .value { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #4f585d; }
+      .node-label { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #ffffff; }
+      .note { font: 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #596268; }
+      .tablehead { fill: #e9f4f7; stroke: #b8cbd2; stroke-width: 2; }
+      .tablerow { fill: #fffdfa; stroke: #ddd7ca; stroke-width: 1; }
+
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f718c"/>
+    </marker>
+  </defs>
+  <rect class="background" width="1400" height="920" rx="24"/>
+  <rect class="panel" x="24" y="24" width="1352" height="872" rx="18"/>
+  <text class="title" x="58" y="70">Buchla 259-style · five-cell SPICE teacher</text>
+  <text class="subtitle" x="58" y="98">Exact documentation view of models/buchla_259.cir</text>
+  <line x1="70" y1="155" x2="185" y2="155" stroke="#2f718c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text class="label" x="70" y="126" fill="#2f718c">VINPUT</text>
+  <text class="value" x="70" y="147">DC 0…+5 V</text>
+  <rect class="active" x="205.0" y="124.0" width="270" height="62" rx="12"/>
+  <text class="label" text-anchor="middle" x="340" y="151">parallel folding cells</text>
+  <text class="value" text-anchor="middle" x="340" y="171">5 rail-limited inverters</text>
+  <rect class="passive" x="575.0" y="124.0" width="230" height="62" rx="12"/>
+  <text class="label" text-anchor="middle" x="690" y="151">weighted summers</text>
+  <text class="value" text-anchor="middle" x="690" y="171">nup / nlow</text>
+  <rect class="active" x="890.0" y="124.0" width="220" height="62" rx="12"/>
+  <text class="label" text-anchor="middle" x="1000" y="151">BUP</text>
+  <text class="value" text-anchor="middle" x="1000" y="171">rail-limited output</text>
+  <line class="wire" x1="475" y1="155" x2="575" y2="155" marker-end="url(#arrow)"/>
+  <line class="wire" x1="805" y1="155" x2="890" y2="155" marker-end="url(#arrow)"/>
+  <line x1="1110" y1="155" x2="1295" y2="155" stroke="#2f718c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text class="label" x="1150" y="131" fill="#2f718c">V(out)</text>
+  <text class="value" x="1150" y="151">teacher output</text>
+  <rect class="tablehead" x="58" y="225" width="125" height="42"/>
+  <text class="label" x="68" y="252">cell</text>
+  <rect class="tablehead" x="183" y="225" width="125" height="42"/>
+  <text class="label" x="193" y="252">RIN</text>
+  <rect class="tablehead" x="308" y="225" width="125" height="42"/>
+  <text class="label" x="318" y="252">RFB</text>
+  <rect class="tablehead" x="433" y="225" width="150" height="42"/>
+  <text class="label" x="443" y="252">sense node</text>
+  <rect class="tablehead" x="583" y="225" width="210" height="42"/>
+  <text class="label" x="593" y="252">behavioral inverter</text>
+  <rect class="tablehead" x="793" y="225" width="160" height="42"/>
+  <text class="label" x="803" y="252">cell output</text>
+  <rect class="tablerow" x="58" y="267" width="125" height="52"/>
+  <text class="value" x="68" y="298">1</text>
+  <rect class="tablerow" x="183" y="267" width="125" height="52"/>
+  <text class="value" x="193" y="298">10 kΩ</text>
+  <rect class="tablerow" x="308" y="267" width="125" height="52"/>
+  <text class="value" x="318" y="298">100 kΩ</text>
+  <rect class="tablerow" x="433" y="267" width="150" height="52"/>
+  <text class="value" x="443" y="298">n1</text>
+  <rect class="tablerow" x="583" y="267" width="210" height="52"/>
+  <text class="value" x="593" y="298">B1OP · 6·tanh(−10⁶·Vn/6)</text>
+  <rect class="tablerow" x="793" y="267" width="160" height="52"/>
+  <text class="value" x="803" y="298">op1</text>
+  <rect class="tablerow" x="58" y="319" width="125" height="52"/>
+  <text class="value" x="68" y="350">2</text>
+  <rect class="tablerow" x="183" y="319" width="125" height="52"/>
+  <text class="value" x="193" y="350">49.9 kΩ</text>
+  <rect class="tablerow" x="308" y="319" width="125" height="52"/>
+  <text class="value" x="318" y="350">100 kΩ</text>
+  <rect class="tablerow" x="433" y="319" width="150" height="52"/>
+  <text class="value" x="443" y="350">n2</text>
+  <rect class="tablerow" x="583" y="319" width="210" height="52"/>
+  <text class="value" x="593" y="350">B2OP · 6·tanh(−10⁶·Vn/6)</text>
+  <rect class="tablerow" x="793" y="319" width="160" height="52"/>
+  <text class="value" x="803" y="350">op2</text>
+  <rect class="tablerow" x="58" y="371" width="125" height="52"/>
+  <text class="value" x="68" y="402">3</text>
+  <rect class="tablerow" x="183" y="371" width="125" height="52"/>
+  <text class="value" x="193" y="402">91 kΩ</text>
+  <rect class="tablerow" x="308" y="371" width="125" height="52"/>
+  <text class="value" x="318" y="402">100 kΩ</text>
+  <rect class="tablerow" x="433" y="371" width="150" height="52"/>
+  <text class="value" x="443" y="402">n3</text>
+  <rect class="tablerow" x="583" y="371" width="210" height="52"/>
+  <text class="value" x="593" y="402">B3OP · 6·tanh(−10⁶·Vn/6)</text>
+  <rect class="tablerow" x="793" y="371" width="160" height="52"/>
+  <text class="value" x="803" y="402">op3</text>
+  <rect class="tablerow" x="58" y="423" width="125" height="52"/>
+  <text class="value" x="68" y="454">4</text>
+  <rect class="tablerow" x="183" y="423" width="125" height="52"/>
+  <text class="value" x="193" y="454">30 kΩ</text>
+  <rect class="tablerow" x="308" y="423" width="125" height="52"/>
+  <text class="value" x="318" y="454">100 kΩ</text>
+  <rect class="tablerow" x="433" y="423" width="150" height="52"/>
+  <text class="value" x="443" y="454">n4</text>
+  <rect class="tablerow" x="583" y="423" width="210" height="52"/>
+  <text class="value" x="593" y="454">B4OP · 6·tanh(−10⁶·Vn/6)</text>
+  <rect class="tablerow" x="793" y="423" width="160" height="52"/>
+  <text class="value" x="803" y="454">op4</text>
+  <rect class="tablerow" x="58" y="475" width="125" height="52"/>
+  <text class="value" x="68" y="506">5</text>
+  <rect class="tablerow" x="183" y="475" width="125" height="52"/>
+  <text class="value" x="193" y="506">68 kΩ</text>
+  <rect class="tablerow" x="308" y="475" width="125" height="52"/>
+  <text class="value" x="318" y="506">100 kΩ</text>
+  <rect class="tablerow" x="433" y="475" width="150" height="52"/>
+  <text class="value" x="443" y="506">n5</text>
+  <rect class="tablerow" x="583" y="475" width="210" height="52"/>
+  <text class="value" x="593" y="506">B5OP · 6·tanh(−10⁶·Vn/6)</text>
+  <rect class="tablerow" x="793" y="475" width="160" height="52"/>
+  <text class="value" x="803" y="506">op5</text>
+  <rect class="tablehead" x="980" y="225" width="120" height="42"/>
+  <text class="label" x="990" y="252">from</text>
+  <rect class="tablehead" x="1100" y="225" width="115" height="42"/>
+  <text class="label" x="1110" y="252">resistor</text>
+  <rect class="tablehead" x="1215" y="225" width="125" height="42"/>
+  <text class="label" x="1225" y="252">to</text>
+  <rect class="tablerow" x="980" y="267" width="120" height="42"/>
+  <text class="value" x="990" y="293">n4</text>
+  <rect class="tablerow" x="1100" y="267" width="115" height="42"/>
+  <text class="value" x="1110" y="293">68 kΩ</text>
+  <rect class="tablerow" x="1215" y="267" width="125" height="42"/>
+  <text class="value" x="1225" y="293">nlow</text>
+  <rect class="tablerow" x="980" y="309" width="120" height="42"/>
+  <text class="value" x="990" y="335">n5</text>
+  <rect class="tablerow" x="1100" y="309" width="115" height="42"/>
+  <text class="value" x="1110" y="335">33 kΩ</text>
+  <rect class="tablerow" x="1215" y="309" width="125" height="42"/>
+  <text class="value" x="1225" y="335">nlow</text>
+  <rect class="tablerow" x="980" y="351" width="120" height="42"/>
+  <text class="value" x="990" y="377">in</text>
+  <rect class="tablerow" x="1100" y="351" width="115" height="42"/>
+  <text class="value" x="1110" y="377">240 kΩ</text>
+  <rect class="tablerow" x="1215" y="351" width="125" height="42"/>
+  <text class="value" x="1225" y="377">nlow</text>
+  <rect class="tablerow" x="980" y="393" width="120" height="42"/>
+  <text class="value" x="990" y="419">n1</text>
+  <rect class="tablerow" x="1100" y="393" width="115" height="42"/>
+  <text class="value" x="1110" y="419">100 kΩ</text>
+  <rect class="tablerow" x="1215" y="393" width="125" height="42"/>
+  <text class="value" x="1225" y="419">nup</text>
+  <rect class="tablerow" x="980" y="435" width="120" height="42"/>
+  <text class="value" x="990" y="461">n2</text>
+  <rect class="tablerow" x="1100" y="435" width="115" height="42"/>
+  <text class="value" x="1110" y="461">43.2 kΩ</text>
+  <rect class="tablerow" x="1215" y="435" width="125" height="42"/>
+  <text class="value" x="1225" y="461">nup</text>
+  <rect class="tablerow" x="980" y="477" width="120" height="42"/>
+  <text class="value" x="990" y="503">n3</text>
+  <rect class="tablerow" x="1100" y="477" width="115" height="42"/>
+  <text class="value" x="1110" y="503">56 kΩ</text>
+  <rect class="tablerow" x="1215" y="477" width="125" height="42"/>
+  <text class="value" x="1225" y="503">nup</text>
+  <rect class="tablerow" x="980" y="519" width="120" height="42"/>
+  <text class="value" x="990" y="545">v7</text>
+  <rect class="tablerow" x="1100" y="519" width="115" height="42"/>
+  <text class="value" x="1110" y="545">24.9 kΩ</text>
+  <rect class="tablerow" x="1215" y="519" width="125" height="42"/>
+  <text class="value" x="1225" y="545">nup</text>
+  <rect class="passive" x="58" y="586" width="620" height="94" rx="14"/>
+  <text class="label" x="78" y="614">Lower summer · nlow</text>
+  <text class="value" x="78" y="637">RFLOW: v7 → nlow · 24.9 kΩ</text>
+  <text class="value" x="78" y="656">BLOW: v7 = 15·tanh(−10⁶·V(nlow)/15)</text>
+  <rect class="active" x="708" y="586" width="634" height="94" rx="14"/>
+  <text class="label" x="728" y="614">Upper/output summer · nup</text>
+  <text class="value" x="728" y="637">RFUP: out → nup · 1.2 MΩ · COUT: out ↔ nup · 100 pF</text>
+  <text class="value" x="728" y="656">BUP: out = 15·tanh(−10⁶·V(nup)/15)</text>
+  <text class="note" x="58" y="808">Every cell is an inverting behavioral op-amp with its listed RIN and 100 kΩ feedback resistor.</text>
+  <text class="note" x="58" y="829">The drawing preserves the netlist&#x27;s unusual use of cell sense nodes n1…n5 in the weighted summers.</text>
+  <text class="note" x="58" y="850">Teacher sweep: VINPUT = 0…+5 V in 2.5 mV steps; the learned odd transfer mirrors this positive half.</text>
+</svg>

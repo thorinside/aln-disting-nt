@@ -1,0 +1,17 @@
+* One silicon diode against two series silicon diodes
+VINPUT in 0 DC 0
+RIN in out 10k
+RLOAD out 0 1meg
+D1 out 0 DSI
+D2 0 series DSI
+D3 series out DSI
+.model DSI D(Is=2n N=1.8 Rs=2 Cjo=2p)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata asymmetric_dc.tsv v(in) v(out)
+quit
+.endc
+.end

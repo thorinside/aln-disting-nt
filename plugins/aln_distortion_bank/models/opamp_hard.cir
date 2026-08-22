@@ -1,0 +1,14 @@
+* High-gain non-inverting op-amp limited to four-volt rails
+VINPUT in 0 DC 0
+RG nminus 0 10k
+RFB out nminus 90k
+BOP out 0 V=4*tanh(1e6*(V(in)-V(nminus))/4)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata opamp_hard_dc.tsv v(in) v(out)
+quit
+.endc
+.end

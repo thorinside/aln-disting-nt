@@ -1,0 +1,16 @@
+* Passive antiparallel LED clipper
+VINPUT in 0 DC 0
+RIN in out 10k
+RLOAD out 0 1meg
+D1 out 0 DLED
+D2 0 out DLED
+.model DLED D(Is=10a N=2.2 Rs=8 Cjo=10p)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata led_clip_dc.tsv v(in) v(out)
+quit
+.endc
+.end

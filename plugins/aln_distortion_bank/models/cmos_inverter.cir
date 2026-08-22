@@ -1,0 +1,22 @@
+* Resistively biased and feedback-linearized CMOS inverter
+VINPUT in 0 DC 0
+VDD vdd 0 DC 5
+RIN in gate 100k
+RFB raw gate 330k
+RBIAS1 vdd gate 1meg
+RBIAS2 gate 0 1meg
+M1 raw gate 0 0 NMOS W=20u L=2u
+M2 raw gate vdd vdd PMOS W=40u L=2u
+RLEAK raw 0 10meg
+BOUT out 0 V=2.5-V(raw)
+.model NMOS NMOS(Level=1 Vto=0.8 Kp=120u Lambda=0.02)
+.model PMOS PMOS(Level=1 Vto=-0.8 Kp=50u Lambda=0.02)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata cmos_inverter_dc.tsv v(in) v(out)
+quit
+.endc
+.end

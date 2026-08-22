@@ -1,0 +1,20 @@
+* Silicon diodes in an op-amp feedback loop, phase restored
+VINPUT in 0 DC 0
+RIN in n1 100k
+RFB stage1 n1 220k
+D1 stage1 n1 DSI
+D2 n1 stage1 DSI
+BOP1 stage1 0 V=12*tanh(-1e6*V(n1)/12)
+R2IN stage1 n2 100k
+R2FB out n2 100k
+BOP2 out 0 V=12*tanh(-1e6*V(n2)/12)
+.model DSI D(Is=2n N=1.8 Rs=2 Cjo=2p)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata silicon_soft_dc.tsv v(in) v(out)
+quit
+.endc
+.end

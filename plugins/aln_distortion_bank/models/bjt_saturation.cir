@@ -1,0 +1,24 @@
+* Long-tailed BJT differential pair
+VINPUT in 0 DC 0
+VCC vcc 0 DC 12
+VEE vee 0 DC -12
+EPLUS bplus 0 in 0 0.5
+EMINUS bminus 0 in 0 -0.5
+Q1 c1 bplus e1 QNPN
+Q2 c2 bminus e2 QNPN
+RC1 vcc c1 10k
+RC2 vcc c2 10k
+RE1 e1 emitter 2.2k
+RE2 e2 emitter 2.2k
+ITAIL emitter vee DC 1m
+EOUT out 0 c2 c1 0.5
+.model QNPN NPN(Is=1e-14 Bf=200 Vaf=100 Cje=5p Cjc=3p)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata bjt_saturation_dc.tsv v(in) v(out)
+quit
+.endc
+.end

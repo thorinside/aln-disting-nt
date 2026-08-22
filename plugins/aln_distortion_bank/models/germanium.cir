@@ -1,0 +1,16 @@
+* Passive antiparallel germanium diode clipper
+VINPUT in 0 DC 0
+RIN in out 10k
+RLOAD out 0 1meg
+D1 out 0 DGE
+D2 0 out DGE
+.model DGE D(Is=2u N=1.3 Rs=5 Cjo=8p)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata germanium_dc.tsv v(in) v(out)
+quit
+.endc
+.end

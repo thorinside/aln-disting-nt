@@ -12,6 +12,36 @@ ngspice sweeps:
 - CMOS Inverter
 - Full-wave
 
+Each transfer was learned from its own checked-in ngspice circuit under
+`models/`; these are simulated electronic topologies rather than hand-authored
+distortion equations.
+
+## Circuit schematics
+
+The SVGs below are readable topology views of the checked-in teachers. Solid
+lines show circuit connections and dashed lines show behavioral-source control
+signals. Each image links to the `.cir` netlist that remains the source of
+truth.
+
+<table>
+  <tr>
+    <td width="50%"><a href="models/silicon_soft.cir"><img src="docs/silicon_soft.svg" alt="Silicon Soft feedback clipper electronic simulation"></a><br><strong>Silicon Soft</strong></td>
+    <td width="50%"><a href="models/germanium.cir"><img src="docs/germanium.svg" alt="Germanium diode clipper electronic simulation"></a><br><strong>Germanium</strong></td>
+  </tr>
+  <tr>
+    <td width="50%"><a href="models/led_clip.cir"><img src="docs/led_clip.svg" alt="LED diode clipper electronic simulation"></a><br><strong>LED Clip</strong></td>
+    <td width="50%"><a href="models/asymmetric.cir"><img src="docs/asymmetric.svg" alt="Asymmetric silicon diode clipper electronic simulation"></a><br><strong>Asymmetric</strong></td>
+  </tr>
+  <tr>
+    <td width="50%"><a href="models/opamp_hard.cir"><img src="docs/opamp_hard.svg" alt="Rail-limited op-amp electronic simulation"></a><br><strong>Op-amp Hard</strong></td>
+    <td width="50%"><a href="models/bjt_saturation.cir"><img src="docs/bjt_saturation.svg" alt="BJT long-tailed pair electronic simulation"></a><br><strong>BJT Saturation</strong></td>
+  </tr>
+  <tr>
+    <td width="50%"><a href="models/cmos_inverter.cir"><img src="docs/cmos_inverter.svg" alt="Biased CMOS inverter electronic simulation"></a><br><strong>CMOS Inverter</strong></td>
+    <td width="50%"><a href="models/full_wave.cir"><img src="docs/full_wave.svg" alt="Full-wave diode bridge electronic simulation"></a><br><strong>Full-wave</strong></td>
+  </tr>
+</table>
+
 ## Controls
 
 - **Input** — audio input bus.

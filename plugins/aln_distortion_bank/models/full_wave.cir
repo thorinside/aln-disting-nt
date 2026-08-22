@@ -1,0 +1,20 @@
+* Four-diode bridge rectifier
+VINPUT in 0 DC 0
+D1 in positive DSI
+D2 0 positive DSI
+D3 negative in DSI
+D4 negative 0 DSI
+RLOAD positive negative 10k
+RREF1 positive 0 10meg
+RREF2 negative 0 10meg
+EOUT out 0 positive negative 1
+.model DSI D(Is=2n N=1.8 Rs=2 Cjo=2p)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.0025
+wrdata full_wave_dc.tsv v(in) v(out)
+quit
+.endc
+.end

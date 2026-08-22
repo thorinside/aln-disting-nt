@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title description">
+  <title id="title">Full-wave · diode bridge teacher</title>
+  <desc id="description">An ngspice four-silicon-diode bridge rectifier with a ten kilohm differential load, ten megohm reference resistors, and a unity differential output source.</desc>
+  <defs>
+    <style>
+
+      .background { fill: #f7f5ef; }
+      .panel { fill: #ffffff; stroke: #d8d3c7; stroke-width: 2; }
+      .wire { fill: none; stroke: #273136; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .control { fill: none; stroke: #688899; stroke-width: 2; stroke-dasharray: 7 6; }
+      .node { fill: #273136; }
+      .nodebox { fill: #273136; stroke: #273136; stroke-width: 2; }
+      .passive { fill: #fffaf0; stroke: #273136; stroke-width: 2; }
+      .active { fill: #fff0dd; stroke: #ad5a23; stroke-width: 3; }
+      .source { fill: #e9f4f7; stroke: #2f718c; stroke-width: 3; }
+      .supply { fill: #a43b32; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #202528; }
+      .subtitle { font: 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .label { font: 600 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #252b2f; }
+      .value { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #4f585d; }
+      .node-label { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #ffffff; }
+      .note { font: 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #596268; }
+      .tablehead { fill: #e9f4f7; stroke: #b8cbd2; stroke-width: 2; }
+      .tablerow { fill: #fffdfa; stroke: #ddd7ca; stroke-width: 1; }
+
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f718c"/>
+    </marker>
+  </defs>
+  <rect class="background" width="1200" height="720" rx="24"/>
+  <rect class="panel" x="24" y="24" width="1152" height="672" rx="18"/>
+  <text class="title" x="58" y="70">Full-wave · diode bridge teacher</text>
+  <text class="subtitle" x="58" y="98">Exact documentation view of models/full_wave.cir</text>
+  <line class="wire" x1="150" y1="330" x2="150" y2="485"/>
+  <line class="wire" x1="150" y1="485" x2="540" y2="560"/>
+  <line class="wire" x1="150" y1="330" x2="350" y2="230"/>
+  <line class="wire" x1="350" y1="230" x2="560" y2="180"/>
+  <line class="wire" x1="540" y1="560" x2="710" y2="245"/>
+  <line class="wire" x1="710" y1="245" x2="560" y2="180"/>
+  <line class="wire" x1="560" y1="440" x2="350" y2="430"/>
+  <line class="wire" x1="350" y1="430" x2="150" y2="330"/>
+  <line class="wire" x1="560" y1="440" x2="710" y2="500"/>
+  <line class="wire" x1="710" y1="500" x2="540" y2="560"/>
+  <line class="wire" x1="560" y1="180" x2="560" y2="310"/>
+  <line class="wire" x1="560" y1="310" x2="560" y2="440"/>
+  <line class="wire" x1="560" y1="180" x2="785" y2="180"/>
+  <line class="wire" x1="785" y1="180" x2="540" y2="560"/>
+  <line class="wire" x1="560" y1="440" x2="785" y2="440"/>
+  <line class="wire" x1="785" y1="440" x2="540" y2="560"/>
+  <line class="wire" x1="540" y1="560" x2="875" y2="280"/>
+  <line class="wire" x1="875" y1="280" x2="1000" y2="330"/>
+  <line class="control" x1="560" y1="180" x2="875" y2="280"/>
+  <line class="control" x1="560" y1="440" x2="875" y2="280"/>
+  <rect class="nodebox" x="123.0" y="315" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="150" y="334">in</text>
+  <rect class="nodebox" x="513.0" y="545" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="540" y="564">0</text>
+  <rect class="nodebox" x="519.0" y="165" width="82" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="560" y="184">positive</text>
+  <rect class="nodebox" x="519.0" y="425" width="82" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="560" y="444">negative</text>
+  <rect class="nodebox" x="973.0" y="315" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="1000" y="334">out</text>
+  <line x1="1027.0" y1="330" x2="1091.0" y2="330" stroke="#2f718c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text class="label" x="1037.0" y="317" fill="#2f718c">teacher output</text>
+  <rect class="source" x="57.0" y="458.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="150" y="481">VINPUT</text>
+  <text class="value" text-anchor="middle" x="150" y="501">DC −5…+5 V</text>
+  <rect class="active" x="257.0" y="203.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="350" y="226">D1</text>
+  <text class="value" text-anchor="middle" x="350" y="246">DSI · in → positive</text>
+  <rect class="active" x="617.0" y="218.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="710" y="241">D2</text>
+  <text class="value" text-anchor="middle" x="710" y="261">DSI · 0 → positive</text>
+  <rect class="active" x="257.0" y="403.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="350" y="426">D3</text>
+  <text class="value" text-anchor="middle" x="350" y="446">DSI · negative → in</text>
+  <rect class="active" x="617.0" y="473.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="710" y="496">D4</text>
+  <text class="value" text-anchor="middle" x="710" y="516">DSI · negative → 0</text>
+  <rect class="passive" x="467.0" y="283.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="560" y="306">RLOAD</text>
+  <text class="value" text-anchor="middle" x="560" y="326">10 kΩ</text>
+  <rect class="passive" x="692.0" y="153.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="785" y="176">RREF1</text>
+  <text class="value" text-anchor="middle" x="785" y="196">10 MΩ</text>
+  <rect class="passive" x="692.0" y="413.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="785" y="436">RREF2</text>
+  <text class="value" text-anchor="middle" x="785" y="456">10 MΩ</text>
+  <rect class="source" x="782.0" y="253.0" width="186" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="875" y="276">EOUT</text>
+  <text class="value" text-anchor="middle" x="875" y="296">Vpositive − Vnegative</text>
+  <text class="note" x="58" y="608">DSI: Is=2 nA, N=1.8, Rs=2 Ω, Cjo=2 pF.</text>
+  <text class="note" x="58" y="629">EOUT reports the loaded bridge&#x27;s positive-to-negative differential voltage.</text>
+  <text class="note" x="58" y="650">Teacher sweep: VINPUT = −5…+5 V in 2.5 mV steps; output is V(out).</text>
+</svg>

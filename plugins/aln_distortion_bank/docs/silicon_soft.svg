@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title description">
+  <title id="title">Silicon Soft · feedback clipper teacher</title>
+  <desc id="description">Two rail-limited behavioral op-amp stages. The first uses antiparallel silicon diodes and a 220 kilohm resistor in its feedback path; the second restores phase at unity gain.</desc>
+  <defs>
+    <style>
+
+      .background { fill: #f7f5ef; }
+      .panel { fill: #ffffff; stroke: #d8d3c7; stroke-width: 2; }
+      .wire { fill: none; stroke: #273136; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .control { fill: none; stroke: #688899; stroke-width: 2; stroke-dasharray: 7 6; }
+      .node { fill: #273136; }
+      .nodebox { fill: #273136; stroke: #273136; stroke-width: 2; }
+      .passive { fill: #fffaf0; stroke: #273136; stroke-width: 2; }
+      .active { fill: #fff0dd; stroke: #ad5a23; stroke-width: 3; }
+      .source { fill: #e9f4f7; stroke: #2f718c; stroke-width: 3; }
+      .supply { fill: #a43b32; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #202528; }
+      .subtitle { font: 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .label { font: 600 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #252b2f; }
+      .value { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #4f585d; }
+      .node-label { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #ffffff; }
+      .note { font: 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #596268; }
+      .tablehead { fill: #e9f4f7; stroke: #b8cbd2; stroke-width: 2; }
+      .tablerow { fill: #fffdfa; stroke: #ddd7ca; stroke-width: 1; }
+
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f718c"/>
+    </marker>
+  </defs>
+  <rect class="background" width="1200" height="720" rx="24"/>
+  <rect class="panel" x="24" y="24" width="1152" height="672" rx="18"/>
+  <text class="title" x="58" y="70">Silicon Soft · feedback clipper teacher</text>
+  <text class="subtitle" x="58" y="98">Exact documentation view of models/silicon_soft.cir</text>
+  <line class="wire" x1="90" y1="300" x2="95" y2="455"/>
+  <line class="wire" x1="95" y1="455" x2="585" y2="560"/>
+  <line class="wire" x1="90" y1="300" x2="195" y2="300"/>
+  <line class="wire" x1="195" y1="300" x2="310" y2="300"/>
+  <line class="wire" x1="585" y1="300" x2="445" y2="160"/>
+  <line class="wire" x1="445" y1="160" x2="310" y2="300"/>
+  <line class="wire" x1="585" y1="300" x2="430" y2="220"/>
+  <line class="wire" x1="430" y1="220" x2="310" y2="300"/>
+  <line class="wire" x1="310" y1="300" x2="465" y2="380"/>
+  <line class="wire" x1="465" y1="380" x2="585" y2="300"/>
+  <line class="wire" x1="585" y1="300" x2="585" y2="455"/>
+  <line class="wire" x1="585" y1="455" x2="585" y2="560"/>
+  <line class="wire" x1="585" y1="300" x2="695" y2="300"/>
+  <line class="wire" x1="695" y1="300" x2="805" y2="300"/>
+  <line class="wire" x1="1050" y1="300" x2="925" y2="160"/>
+  <line class="wire" x1="925" y1="160" x2="805" y2="300"/>
+  <line class="wire" x1="1050" y1="300" x2="910" y2="455"/>
+  <line class="wire" x1="910" y1="455" x2="585" y2="560"/>
+  <rect class="nodebox" x="63.0" y="285" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="90" y="304">in</text>
+  <rect class="nodebox" x="283.0" y="285" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="310" y="304">n1</text>
+  <rect class="nodebox" x="552.0" y="285" width="66" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="585" y="304">stage1</text>
+  <rect class="nodebox" x="778.0" y="285" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="805" y="304">n2</text>
+  <rect class="nodebox" x="1023.0" y="285" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="1050" y="304">out</text>
+  <line x1="1077.0" y1="300" x2="1141.0" y2="300" stroke="#2f718c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text class="label" x="1087.0" y="287" fill="#2f718c">teacher output</text>
+  <rect class="nodebox" x="558.0" y="545" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="585" y="564">0</text>
+  <rect class="source" x="-1.0" y="428.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="95" y="451">VINPUT</text>
+  <text class="value" text-anchor="middle" x="95" y="471">DC −5…+5 V</text>
+  <rect class="passive" x="99.0" y="273.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="195" y="296">RIN</text>
+  <text class="value" text-anchor="middle" x="195" y="316">100 kΩ</text>
+  <rect class="passive" x="349.0" y="133.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="445" y="156">RFB</text>
+  <text class="value" text-anchor="middle" x="445" y="176">220 kΩ</text>
+  <rect class="active" x="334.0" y="193.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="430" y="216">D1</text>
+  <text class="value" text-anchor="middle" x="430" y="236">DSI · stage1 → n1</text>
+  <rect class="active" x="369.0" y="353.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="465" y="376">D2</text>
+  <text class="value" text-anchor="middle" x="465" y="396">DSI · n1 → stage1</text>
+  <rect class="active" x="489.0" y="428.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="585" y="451">BOP1</text>
+  <text class="value" text-anchor="middle" x="585" y="471">−12·tanh(10⁶·Vn1/12)</text>
+  <rect class="passive" x="599.0" y="273.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="695" y="296">R2IN</text>
+  <text class="value" text-anchor="middle" x="695" y="316">100 kΩ</text>
+  <rect class="passive" x="829.0" y="133.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="925" y="156">R2FB</text>
+  <text class="value" text-anchor="middle" x="925" y="176">100 kΩ</text>
+  <rect class="active" x="814.0" y="428.0" width="192" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="910" y="451">BOP2</text>
+  <text class="value" text-anchor="middle" x="910" y="471">−12·tanh(10⁶·Vn2/12)</text>
+  <text class="note" x="58" y="608">DSI: Is=2 nA, N=1.8, Rs=2 Ω, Cjo=2 pF.</text>
+  <text class="note" x="58" y="629">The second inverting stage restores the first stage&#x27;s polarity.</text>
+  <text class="note" x="58" y="650">Teacher sweep: VINPUT = −5…+5 V in 2.5 mV steps; output is V(out).</text>
+</svg>

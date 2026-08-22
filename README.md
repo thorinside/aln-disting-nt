@@ -52,9 +52,10 @@ See [DEVELOPING.md](DEVELOPING.md) for local build and release details.
 ## Source boundary
 
 This repository contains the real-time plug-in code, generated model tables,
-and the releasable ALN Saturation source netlists needed to audit its electronic
-teachers. It intentionally does not contain the research/training workspace or
-the separately supplied ALN trainer used during the experiments.
+and releasable source netlists needed to audit every electronic teacher used by
+ALN Fold, ALN Distort, and ALN Saturation. It intentionally does not contain
+the research/training workspace or the separately supplied ALN trainer used
+during the experiments.
 
 The experimental trainer was an affine-leaf regression tree, not the canonical
 Armstrong/Thomas MIN/MAX ALN implementation. After fitting, its breakpoint

@@ -9,6 +9,23 @@ At Fold 100%, a 10 Vpp input covers the complete learned circuit range. Both
 models are normalized to approximately 10 Vpp output. Switching models uses a
 10 ms crossfade.
 
+Both transfers were learned from the checked-in ngspice teachers under
+`models/`; they are not hand-authored waveshaping equations.
+
+## Circuit schematics
+
+These SVGs document the actual circuit topologies and values used for the
+training sweeps. The linked `.cir` netlists remain the source of truth; click a
+diagram to inspect one.
+
+### Buchla 259-style
+
+[![Five-cell Buchla 259-style electronic simulation](docs/buchla_259.svg)](models/buchla_259.cir)
+
+### Extended 16-fold
+
+[![Eight-cell extended 16-fold electronic simulation](docs/extended_16_fold.svg)](models/extended_16_fold.cir)
+
 ## Controls
 
 - **Input** — audio input bus.

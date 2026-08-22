@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title description">
+  <title id="title">Op-amp Hard · rail-limited teacher</title>
+  <desc id="description">A non-inverting high-gain behavioral op-amp with a ten kilohm ground resistor, ninety kilohm feedback resistor, and smooth four volt rail limiting.</desc>
+  <defs>
+    <style>
+
+      .background { fill: #f7f5ef; }
+      .panel { fill: #ffffff; stroke: #d8d3c7; stroke-width: 2; }
+      .wire { fill: none; stroke: #273136; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .control { fill: none; stroke: #688899; stroke-width: 2; stroke-dasharray: 7 6; }
+      .node { fill: #273136; }
+      .nodebox { fill: #273136; stroke: #273136; stroke-width: 2; }
+      .passive { fill: #fffaf0; stroke: #273136; stroke-width: 2; }
+      .active { fill: #fff0dd; stroke: #ad5a23; stroke-width: 3; }
+      .source { fill: #e9f4f7; stroke: #2f718c; stroke-width: 3; }
+      .supply { fill: #a43b32; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #202528; }
+      .subtitle { font: 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .label { font: 600 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #252b2f; }
+      .value { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #4f585d; }
+      .node-label { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #ffffff; }
+      .note { font: 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #596268; }
+      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #596268; }
+      .tablehead { fill: #e9f4f7; stroke: #b8cbd2; stroke-width: 2; }
+      .tablerow { fill: #fffdfa; stroke: #ddd7ca; stroke-width: 1; }
+
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f718c"/>
+    </marker>
+  </defs>
+  <rect class="background" width="1200" height="720" rx="24"/>
+  <rect class="panel" x="24" y="24" width="1152" height="672" rx="18"/>
+  <text class="title" x="58" y="70">Op-amp Hard · rail-limited teacher</text>
+  <text class="subtitle" x="58" y="98">Exact documentation view of models/opamp_hard.cir</text>
+  <line class="wire" x1="120" y1="300" x2="130" y2="455"/>
+  <line class="wire" x1="130" y1="455" x2="560" y2="560"/>
+  <line class="wire" x1="930" y1="300" x2="805" y2="455"/>
+  <line class="wire" x1="805" y1="455" x2="560" y2="560"/>
+  <line class="wire" x1="560" y1="430" x2="560" y2="505"/>
+  <line class="wire" x1="560" y1="505" x2="560" y2="560"/>
+  <line class="wire" x1="930" y1="300" x2="750" y2="350"/>
+  <line class="wire" x1="750" y1="350" x2="560" y2="430"/>
+  <rect class="nodebox" x="93.0" y="285" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="120" y="304">in</text>
+  <rect class="nodebox" x="527.0" y="415" width="66" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="560" y="434">nminus</text>
+  <rect class="nodebox" x="903.0" y="285" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="930" y="304">out</text>
+  <line x1="957.0" y1="300" x2="1021.0" y2="300" stroke="#2f718c" stroke-width="3" marker-end="url(#arrow)"/>
+  <text class="label" x="967.0" y="287" fill="#2f718c">teacher output</text>
+  <rect class="nodebox" x="533.0" y="545" width="54" height="30" rx="15"/>
+  <text class="node-label" text-anchor="middle" x="560" y="564">0</text>
+  <rect class="source" x="48.0" y="428.0" width="164" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="130" y="451">VINPUT</text>
+  <text class="value" text-anchor="middle" x="130" y="471">DC −5…+5 V</text>
+  <rect class="active" x="723.0" y="428.0" width="164" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="805" y="451">BOP</text>
+  <text class="value" text-anchor="middle" x="805" y="471">+4·tanh(10⁶·(Vin−V−)/4)</text>
+  <rect class="passive" x="478.0" y="478.0" width="164" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="560" y="501">RG</text>
+  <text class="value" text-anchor="middle" x="560" y="521">10 kΩ</text>
+  <rect class="passive" x="668.0" y="323.0" width="164" height="54" rx="12"/>
+  <text class="label" text-anchor="middle" x="750" y="346">RFB</text>
+  <text class="value" text-anchor="middle" x="750" y="366">90 kΩ</text>
+  <text class="note" x="58" y="608">The 10 kΩ / 90 kΩ network requests 10× closed-loop gain.</text>
+  <text class="note" x="58" y="629">BOP smoothly approaches ±4 V using the netlist&#x27;s tanh rail model.</text>
+  <text class="note" x="58" y="650">Teacher sweep: VINPUT = −5…+5 V in 2.5 mV steps; output is V(out).</text>
+  <path class="control" d="M120 300 C350 150 650 150 805 455"/>
+  <text class="small" x="350" y="165">non-inverting control Vin</text>
+</svg>

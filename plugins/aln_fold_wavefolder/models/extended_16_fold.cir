@@ -1,0 +1,54 @@
+* Learned 8-cell wavefolder compiled to E96 resistors
+* Ideal rail-limited op-amps; simulate before building hardware
+VINPUT in 0 DC 0 SIN(0 5 100)
+R1IN in n1 5.23k
+R1FB op1 n1 100k
+B1OP op1 0 V=6*tanh(-1e6*V(n1)/6)
+R2IN in n2 15.8k
+R2FB op2 n2 100k
+B2OP op2 0 V=6*tanh(-1e6*V(n2)/6)
+R3IN in n3 26.1k
+R3FB op3 n3 100k
+B3OP op3 0 V=6*tanh(-1e6*V(n3)/6)
+R4IN in n4 36.5k
+R4FB op4 n4 100k
+B4OP op4 0 V=6*tanh(-1e6*V(n4)/6)
+R5IN in n5 46.4k
+R5FB op5 n5 100k
+B5OP op5 0 V=6*tanh(-1e6*V(n5)/6)
+R6IN in n6 57.6k
+R6FB op6 n6 100k
+B6OP op6 0 V=6*tanh(-1e6*V(n6)/6)
+R7IN in n7 68.1k
+R7FB op7 n7 100k
+B7OP op7 0 V=6*tanh(-1e6*V(n7)/6)
+R8IN in n8 78.7k
+R8FB op8 n8 100k
+B8OP op8 0 V=6*tanh(-1e6*V(n8)/6)
+RLOWIN in nlow 187k
+R1SUM n1 nup 84.5k
+R2SUM n2 nlow 68.1k
+R3SUM n3 nup 53.6k
+R4SUM n4 nlow 42.2k
+R5SUM n5 nup 32.4k
+R6SUM n6 nlow 23.2k
+R7SUM n7 nup 15.4k
+R8SUM n8 nlow 8.45k
+RFLOW vpos nlow 100k
+BLOW vpos 0 V=15*tanh(-1e6*V(nlow)/15)
+RPOS vpos nup 100k
+RFUP out nup 1.8meg
+COUT out nup 100p
+BUP out 0 V=15*tanh(-1e6*V(nup)/15)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT 0 5 0.0025
+wrdata source_dc.tsv v(in) v(out)
+reset
+tran 2u 50m
+wrdata source_transient.tsv v(in) v(out)
+quit
+.endc
+.end
