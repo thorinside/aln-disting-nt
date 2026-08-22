@@ -41,7 +41,7 @@ jobs:
           arm-none-eabi-nm --version
           arm-none-eabi-readelf --version
 
-      - name: Test, build, and inspect both plug-ins
+      - name: Test, build, and inspect all plug-ins
         run: make verify
 
       - name: Package separate Gallery assets
@@ -63,7 +63,9 @@ jobs:
           files: |
             release/aln_fold_wavefolder.o
             release/aln_distortion_bank.o
+            release/aln_saturation.o
             release/aln-fold-wavefolder.zip
             release/aln-distortion-bank.zip
+            release/aln-saturation.zip
           generate_release_notes: true
           fail_on_unmatched_files: true

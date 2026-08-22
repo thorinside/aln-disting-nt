@@ -1,0 +1,23 @@
+* 300 V hotter-driven common-cathode high-mu triode-inspired stage
+VINPUT in 0 DC 0
+EINPUT source 0 in 0 0.78
+RGRID source grid 100k
+RLEAK grid 0 1meg
+VBPLUS bplus 0 DC 300
+RPLATE bplus plate 100k
+RK cathode 0 1.5k
+RLOAD plate 0 1meg
+BTRIODE plate cathode I={0.0048*pow(max(V(grid,cathode)+V(plate,cathode)/100,0),1.5)}
+DGRID grid cathode DGRID
+DCLAMP cathode plate DCLAMP
+.model DGRID D(Is=1n N=1.5 Rs=220 Cjo=2p)
+.model DCLAMP D(Is=1p N=1 Rs=0.1)
+.control
+set noaskquit
+set wr_singlescale
+set wr_vecnames
+dc VINPUT -5 5 0.00125
+wrdata ax7_hot_dc.tsv v(in) v(plate)
+quit
+.endc
+.end

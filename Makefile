@@ -14,6 +14,7 @@ BUILD_DIR := build
 RELEASE_DIR := release
 FOLD_DIR := plugins/aln_fold_wavefolder
 DISTORTION_DIR := plugins/aln_distortion_bank
+SATURATION_DIR := plugins/aln_saturation
 
 HOST_FLAGS := -std=c++11 -O2 -Wall -Wextra -Werror -fno-exceptions -fno-rtti
 ARM_ARCH := -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb
@@ -24,10 +25,14 @@ ARM_FLAGS := -std=c++11 $(ARM_ARCH) -Os -fPIC -ffunction-sections \
 FOLD_TEST := $(BUILD_DIR)/test_aln_fold_wavefolder
 DISTORTION_TEST := $(BUILD_DIR)/test_aln_distortion_bank
 DISTORTION_AUDIO_TEST := $(BUILD_DIR)/audio_test_aln_distortion_bank
+SATURATION_TEST := $(BUILD_DIR)/test_aln_saturation
+SATURATION_AUDIO_TEST := $(BUILD_DIR)/audio_test_aln_saturation
 FOLD_COMPILED := $(BUILD_DIR)/aln_fold_wavefolder_compiled.o
 DISTORTION_COMPILED := $(BUILD_DIR)/aln_distortion_bank_compiled.o
+SATURATION_COMPILED := $(BUILD_DIR)/aln_saturation_compiled.o
 FOLD_OBJECT := $(BUILD_DIR)/aln_fold_wavefolder.o
 DISTORTION_OBJECT := $(BUILD_DIR)/aln_distortion_bank.o
+SATURATION_OBJECT := $(BUILD_DIR)/aln_saturation.o
 
 .PHONY: all check-api test audio-test hardware inspect verify package clean
 
@@ -58,12 +63,26 @@ $(DISTORTION_AUDIO_TEST): $(DISTORTION_DIR)/audio_test.cpp \
 	$(HOST_CXX) $(HOST_FLAGS) -I"$(API_INCLUDE)" -I"$(DISTORTION_DIR)" \
 		$(DISTORTION_DIR)/audio_test.cpp $(DISTORTION_DIR)/aln_distortion_bank.cpp -o "$@"
 
-audio-test: $(DISTORTION_AUDIO_TEST)
-	./$(DISTORTION_AUDIO_TEST) "$(BUILD_DIR)/aln_distortion_audio_metrics.csv"
+$(SATURATION_TEST): $(SATURATION_DIR)/test.cpp $(SATURATION_DIR)/aln_saturation.cpp \
+		$(SATURATION_DIR)/aln_saturation_core.h \
+		$(SATURATION_DIR)/generated/aln_saturation_models.h | check-api $(BUILD_DIR)
+	$(HOST_CXX) $(HOST_FLAGS) -I"$(API_INCLUDE)" -I"$(SATURATION_DIR)" \
+		$(SATURATION_DIR)/test.cpp $(SATURATION_DIR)/aln_saturation.cpp -o "$@"
 
-test: $(FOLD_TEST) $(DISTORTION_TEST) audio-test
+$(SATURATION_AUDIO_TEST): $(SATURATION_DIR)/audio_test.cpp \
+		$(SATURATION_DIR)/aln_saturation.cpp $(SATURATION_DIR)/aln_saturation_core.h \
+		$(SATURATION_DIR)/generated/aln_saturation_models.h | check-api $(BUILD_DIR)
+	$(HOST_CXX) $(HOST_FLAGS) -I"$(API_INCLUDE)" -I"$(SATURATION_DIR)" \
+		$(SATURATION_DIR)/audio_test.cpp $(SATURATION_DIR)/aln_saturation.cpp -o "$@"
+
+audio-test: $(DISTORTION_AUDIO_TEST) $(SATURATION_AUDIO_TEST)
+	./$(DISTORTION_AUDIO_TEST) "$(BUILD_DIR)/aln_distortion_audio_metrics.csv"
+	./$(SATURATION_AUDIO_TEST) "$(BUILD_DIR)/aln_saturation_audio_metrics.csv"
+
+test: $(FOLD_TEST) $(DISTORTION_TEST) $(SATURATION_TEST) audio-test
 	./$(FOLD_TEST)
 	./$(DISTORTION_TEST)
+	./$(SATURATION_TEST)
 
 $(FOLD_COMPILED): $(FOLD_DIR)/aln_fold_wavefolder.cpp $(FOLD_DIR)/aln_fold_core.h \
 		$(FOLD_DIR)/generated/aln_fold_models.h | check-api $(BUILD_DIR)
@@ -73,17 +92,25 @@ $(DISTORTION_COMPILED): $(DISTORTION_DIR)/aln_distortion_bank.cpp \
 		$(DISTORTION_DIR)/aln_distortion_core.h $(DISTORTION_DIR)/generated/aln_distortion_models.h | check-api $(BUILD_DIR)
 	$(ARM_CXX) $(ARM_FLAGS) -I"$(API_INCLUDE)" -I"$(DISTORTION_DIR)" -c "$<" -o "$@"
 
+$(SATURATION_COMPILED): $(SATURATION_DIR)/aln_saturation.cpp \
+		$(SATURATION_DIR)/aln_saturation_core.h \
+		$(SATURATION_DIR)/generated/aln_saturation_models.h | check-api $(BUILD_DIR)
+	$(ARM_CXX) $(ARM_FLAGS) -I"$(API_INCLUDE)" -I"$(SATURATION_DIR)" -c "$<" -o "$@"
+
 $(FOLD_OBJECT): $(FOLD_COMPILED)
 	$(ARM_CXX) $(ARM_ARCH) -nostdlib -Wl,--relocatable "$<" -o "$@"
 
 $(DISTORTION_OBJECT): $(DISTORTION_COMPILED)
 	$(ARM_CXX) $(ARM_ARCH) -nostdlib -Wl,--relocatable "$<" -o "$@"
 
-hardware: $(FOLD_OBJECT) $(DISTORTION_OBJECT)
+$(SATURATION_OBJECT): $(SATURATION_COMPILED)
+	$(ARM_CXX) $(ARM_ARCH) -nostdlib -Wl,--relocatable "$<" -o "$@"
+
+hardware: $(FOLD_OBJECT) $(DISTORTION_OBJECT) $(SATURATION_OBJECT)
 
 inspect: hardware
 	ARM_NM="$(ARM_NM)" ARM_READELF="$(ARM_READELF)" ARM_SIZE="$(ARM_SIZE)" \
-		./scripts/inspect_object.sh $(FOLD_OBJECT) $(DISTORTION_OBJECT)
+		./scripts/inspect_object.sh $(FOLD_OBJECT) $(DISTORTION_OBJECT) $(SATURATION_OBJECT)
 
 verify: test inspect
 

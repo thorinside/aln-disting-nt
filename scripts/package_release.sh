@@ -32,7 +32,9 @@ package_plugin() {
 
 package_plugin "aln_fold_wavefolder.o" "aln-fold-wavefolder" "ALN Fold"
 package_plugin "aln_distortion_bank.o" "aln-distortion-bank" "ALN Distort"
+package_plugin "aln_saturation.o" "aln-saturation" "ALN Saturation"
 
 rm -rf -- "$staging_dir"
 unzip -l "$release_dir/aln-fold-wavefolder.zip"
 unzip -l "$release_dir/aln-distortion-bank.zip"
+unzip -l "$release_dir/aln-saturation.zip"

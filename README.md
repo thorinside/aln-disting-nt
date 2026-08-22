@@ -1,17 +1,18 @@
 # ALN effects for disting NT
 
-Two disting NT audio effects built from compact decision trees fitted to analog
+Three disting NT audio effects built from compact decision trees fitted to analog
 circuit simulations:
 
 | Plug-in | GUID | What it does | Release file |
 | --- | --- | --- | --- |
 | [ALN Fold](plugins/aln_fold_wavefolder/README.md) | `ThWf` | Selectable Buchla 259-style and extended 16-fold wavefolders | `aln_fold_wavefolder.o` |
 | [ALN Distort](plugins/aln_distortion_bank/README.md) | `ThDb` | Eight circuit-inspired distortion models | `aln_distortion_bank.o` |
+| [ALN Saturation](plugins/aln_saturation/README.md) | `ThSa` | Tube-stage-inspired saturation with optional bias memory | `aln_saturation.o` |
 
 The learned tables are checked into this repository. The disting NT does not
 train a model or run Python: each audio sample follows a small fixed decision
-tree and evaluates one affine line. Both effects add first-order antiderivative
-antialiasing around that static nonlinearity.
+tree and evaluates one affine line per modeled path. All three effects add
+first-order antiderivative antialiasing around each static nonlinearity.
 
 ## Install
 
@@ -26,31 +27,34 @@ release. Copy the object to:
 Rescan plug-ins or restart the module, then add the algorithm by name. Begin
 monitoring at a low level when trying a new nonlinear effect.
 
-Both plug-ins have been loaded and auditioned on physical disting NT hardware.
-The automated checks cover their native behavior, ARM build, exported entry
-point, ELF format, and unresolved symbols; those checks are not a substitute
-for listening on a module.
+ALN Fold and ALN Distort have been loaded and auditioned on physical disting NT
+hardware. ALN Saturation has automated and ARM-build evidence only until its
+first module test. Automated checks are not a substitute for listening on a
+module.
 
 ## Releases
 
-One version tag builds both plug-ins. Each GitHub release contains four assets:
+One version tag builds all three plug-ins. Each GitHub release contains six
+assets:
 
 - `aln_fold_wavefolder.o`
 - `aln-fold-wavefolder.zip`
 - `aln_distortion_bank.o`
 - `aln-distortion-bank.zip`
+- `aln_saturation.o`
+- `aln-saturation.zip`
 
-The assets are separate so the two effects can have separate NT Gallery entries
-while sharing one source repository and one tested build.
+The assets are separate so the three effects can have separate NT Gallery
+entries while sharing one source repository and one tested build.
 
 See [DEVELOPING.md](DEVELOPING.md) for local build and release details.
 
 ## Source boundary
 
-This repository contains the real-time plug-in code and the generated model
-tables needed to reproduce its release binaries. It intentionally does not
-contain the research/training workspace or the separately supplied ALN trainer
-used during the experiments.
+This repository contains the real-time plug-in code, generated model tables,
+and the releasable ALN Saturation source netlists needed to audit its electronic
+teachers. It intentionally does not contain the research/training workspace or
+the separately supplied ALN trainer used during the experiments.
 
 The experimental trainer was an affine-leaf regression tree, not the canonical
 Armstrong/Thomas MIN/MAX ALN implementation. After fitting, its breakpoint

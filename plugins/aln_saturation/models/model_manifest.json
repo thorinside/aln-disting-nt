@@ -1,0 +1,51 @@
+{
+  "teacher": "ngspice common-cathode electronic circuit simulations",
+  "device_element": "clean-room Child-Langmuir 3/2-power behavioral current source",
+  "input_domain_v": [
+    -5.0,
+    5.0
+  ],
+  "training_split": "alternating voltage samples; odd samples held out",
+  "models": [
+    {
+      "simulation": {
+        "name": "AX7 Data",
+        "netlist": "ax7_data.cir",
+        "ngspice_log": "ax7_data_ngspice.log",
+        "dc_table": "ax7_data_dc.tsv",
+        "quiescent_plate_v": 152.048249,
+        "minimum_plate_v": 83.6999587,
+        "maximum_plate_v": 218.218582
+      },
+      "training_samples": 4001,
+      "holdout_samples": 4000,
+      "wrapper_node_count": 511,
+      "decision_nodes": 255,
+      "affine_leaves": 256,
+      "maximum_depth": 8,
+      "model_bytes": 5112,
+      "normalized_holdout_rmse_v": 8.546502160708055e-07,
+      "normalized_maximum_holdout_error_v": 6.815451857823471e-06
+    },
+    {
+      "simulation": {
+        "name": "AX7 Hot",
+        "netlist": "ax7_hot.cir",
+        "ngspice_log": "ax7_hot_ngspice.log",
+        "dc_table": "ax7_hot_dc.tsv",
+        "quiescent_plate_v": 183.464536,
+        "minimum_plate_v": 60.6737902,
+        "maximum_plate_v": 272.727248
+      },
+      "training_samples": 4001,
+      "holdout_samples": 4000,
+      "wrapper_node_count": 511,
+      "decision_nodes": 255,
+      "affine_leaves": 256,
+      "maximum_depth": 8,
+      "model_bytes": 5112,
+      "normalized_holdout_rmse_v": 0.00015895662062243802,
+      "normalized_maximum_holdout_error_v": 0.0037145280183112413
+    }
+  ]
+}
