@@ -21,6 +21,22 @@ explicit supply, plate, cathode, grid-conduction, clamp, source, and load
 components. These are tube-circuit-inspired simulations, not measurements of a
 particular physical 12AX7 and not third-party SPICE macro-models.
 
+## Circuit schematics
+
+These SVGs are readable views of the checked-in ngspice teachers. The linked
+`.cir` netlists remain the source of truth; click a diagram to inspect one.
+
+### AX7 Data
+
+[![AX7 Data 250 V common-cathode electronic simulation](docs/ax7_data.svg)](models/ax7_data.cir)
+
+### AX7 Hot
+
+[![AX7 Hot 300 V common-cathode electronic simulation](docs/ax7_hot.svg)](models/ax7_hot.cir)
+
+Bias Memory uses the AX7 Hot circuit transfer plus explicit DSP state, so it is
+not presented as a third simulated electronic circuit.
+
 ## Controls
 
 - **Input** — audio input bus; intended for Eurorack-level signals up to 10 Vpp.

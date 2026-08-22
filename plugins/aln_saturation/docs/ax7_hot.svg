@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title description">
+  <title id="title">AX7 Hot electronic simulation schematic</title>
+  <desc id="description">A hotter 300 volt common-cathode triode-inspired ngspice circuit with a scaled input source, 100 kilohm grid resistor, 1 megohm grid leak, behavioral triode element, grid conduction diode, 100 kilohm plate resistor, 1.5 kilohm cathode resistor, 1 megohm load, and plate clamp.</desc>
+  <defs>
+    <style>
+      .background { fill: #fbfaf6; }
+      .panel { fill: #ffffff; stroke: #d8d3c7; stroke-width: 2; }
+      .wire { fill: none; stroke: #252b2f; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .control { fill: none; stroke: #4f7d94; stroke-width: 3; stroke-dasharray: 8 7; }
+      .component { fill: #fffaf0; stroke: #252b2f; stroke-width: 3; }
+      .active { fill: #ffecdf; stroke: #b6492e; stroke-width: 4; }
+      .supply { fill: #a43b32; }
+      .signal { fill: #2f718c; }
+      .node { fill: #252b2f; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #202528; }
+      .subtitle { font: 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #596268; }
+      .label { font: 600 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #252b2f; }
+      .value { font: 15px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #4f585d; }
+      .node-label { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #ffffff; }
+      .note { font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #596268; }
+      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #596268; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f718c"/>
+    </marker>
+  </defs>
+
+  <rect class="background" width="1200" height="720" rx="24"/>
+  <rect class="panel" x="24" y="24" width="1152" height="672" rx="18"/>
+  <text class="title" x="58" y="70">AX7 Hot · 300 V common-cathode teacher</text>
+  <text class="subtitle" x="58" y="98">Exact documentation view of models/ax7_hot.cir</text>
+
+  <!-- Input and controlled source -->
+  <line class="wire" x1="62" y1="330" x2="142" y2="330" marker-end="url(#arrow)"/>
+  <text class="label signal" x="62" y="295">VINPUT</text>
+  <text class="value" x="62" y="316">DC sweep −5…+5 V</text>
+  <polygon class="component" points="205,270 265,330 205,390 145,330"/>
+  <text class="label" x="177" y="323">EINPUT</text>
+  <text class="value" x="179" y="346">× 0.78</text>
+  <line class="control" x1="118" y1="330" x2="164" y2="300"/>
+  <line class="wire" x1="265" y1="330" x2="310" y2="330"/>
+  <path class="wire" d="M310 330 l14 -18 l22 36 l22 -36 l22 36 l22 -36 l22 36 l14 -18"/>
+  <line class="wire" x1="448" y1="330" x2="520" y2="330"/>
+  <text class="label" x="337" y="286">RGRID</text>
+  <text class="value" x="338" y="307">100 kΩ</text>
+
+  <!-- Grid node and leak -->
+  <circle class="node" cx="520" cy="330" r="7"/>
+  <rect x="486" y="344" width="68" height="24" rx="12" fill="#252b2f"/>
+  <text class="node-label" x="501" y="361">grid</text>
+  <line class="wire" x1="520" y1="330" x2="520" y2="394"/>
+  <path class="wire" d="M520 394 l-18 14 l36 22 l-36 22 l36 22 l-18 14"/>
+  <line class="wire" x1="520" y1="488" x2="520" y2="598"/>
+  <text class="label" x="445" y="426">RLEAK</text>
+  <text class="value" x="448" y="447">1 MΩ</text>
+
+  <!-- Behavioral triode element -->
+  <line class="wire" x1="520" y1="330" x2="656" y2="330"/>
+  <rect class="active" x="656" y="184" width="224" height="300" rx="28"/>
+  <text class="label" x="711" y="230" fill="#913c25">BTRIODE</text>
+  <text class="value" x="684" y="258">behavioral current</text>
+  <line x1="748" y1="292" x2="814" y2="292" stroke="#b6492e" stroke-width="6" stroke-linecap="round"/>
+  <line x1="700" y1="318" x2="744" y2="318" stroke="#b6492e" stroke-width="3" stroke-dasharray="5 5"/>
+  <line x1="700" y1="334" x2="744" y2="334" stroke="#b6492e" stroke-width="3" stroke-dasharray="5 5"/>
+  <line x1="700" y1="350" x2="744" y2="350" stroke="#b6492e" stroke-width="3" stroke-dasharray="5 5"/>
+  <path d="M748 402 Q781 378 814 402" fill="none" stroke="#b6492e" stroke-width="6" stroke-linecap="round"/>
+  <line class="wire" x1="768" y1="184" x2="768" y2="292"/>
+  <line class="wire" x1="656" y1="330" x2="700" y2="330"/>
+  <line class="wire" x1="768" y1="402" x2="768" y2="484"/>
+  <text class="small" x="686" y="442">3/2-power</text>
+  <text class="small" x="686" y="460">current law</text>
+
+  <!-- Plate supply and output -->
+  <line class="wire" x1="768" y1="120" x2="768" y2="132"/>
+  <path class="wire" d="M768 132 l-14 8 l28 10 l-28 10 l28 10 l-14 8"/>
+  <line class="wire" x1="768" y1="178" x2="768" y2="184"/>
+  <circle class="supply" cx="768" cy="120" r="8"/>
+  <text class="label supply" x="731" y="104">B+ 300 V</text>
+  <text class="label" x="799" y="153">RPLATE</text>
+  <text class="value" x="799" y="174">100 kΩ</text>
+  <circle class="node" cx="768" cy="184" r="7"/>
+  <text class="value" x="713" y="175">plate</text>
+  <line class="wire" x1="768" y1="184" x2="1048" y2="184"/>
+  <line class="wire signal" x1="1048" y1="184" x2="1130" y2="184" marker-end="url(#arrow)"/>
+  <text class="label signal" x="1027" y="145">V(plate)</text>
+  <text class="value" x="986" y="165">teacher output</text>
+
+  <!-- Plate load -->
+  <circle class="node" cx="982" cy="184" r="7"/>
+  <line class="wire" x1="982" y1="184" x2="982" y2="372"/>
+  <path class="wire" d="M982 372 l-18 14 l36 22 l-36 22 l36 22 l-18 14"/>
+  <line class="wire" x1="982" y1="466" x2="982" y2="598"/>
+  <text class="label" x="1011" y="403">RLOAD</text>
+  <text class="value" x="1011" y="424">1 MΩ</text>
+
+  <!-- Cathode resistor -->
+  <circle class="node" cx="768" cy="484" r="7"/>
+  <rect x="776" y="493" width="78" height="24" rx="12" fill="#252b2f"/>
+  <text class="node-label" x="788" y="510">cathode</text>
+  <line class="wire" x1="768" y1="484" x2="768" y2="500"/>
+  <path class="wire" d="M768 500 l-18 14 l36 22 l-36 22 l36 22 l-18 14"/>
+  <line class="wire" x1="768" y1="594" x2="768" y2="598"/>
+  <text class="label" x="796" y="539">RK</text>
+  <text class="value" x="796" y="560">1.5 kΩ</text>
+
+  <!-- Diode paths -->
+  <path class="wire" d="M568 330 L610 372 L610 464 L768 484"/>
+  <polygon class="component" points="593,389 627,389 610,423"/>
+  <line x1="591" y1="430" x2="629" y2="430" stroke="#252b2f" stroke-width="4"/>
+  <text class="label" x="543" y="470">DGRID</text>
+  <text class="small" x="543" y="489">grid conduction</text>
+
+  <path class="wire" d="M768 484 L916 484 L916 184"/>
+  <polygon class="component" points="899,392 933,392 916,358"/>
+  <line x1="897" y1="350" x2="935" y2="350" stroke="#252b2f" stroke-width="4"/>
+  <text class="label" x="935" y="321">DCLAMP</text>
+  <text class="small" x="935" y="340">plate clamp</text>
+
+  <!-- Ground bus -->
+  <line class="wire" x1="480" y1="598" x2="1022" y2="598"/>
+  <line class="wire" x1="751" y1="612" x2="785" y2="612"/>
+  <line class="wire" x1="757" y1="623" x2="779" y2="623"/>
+  <line class="wire" x1="763" y1="634" x2="773" y2="634"/>
+  <text class="value" x="795" y="625">0 V reference</text>
+
+  <!-- Model and data-preparation notes -->
+  <text class="note" x="58" y="646">BTRIODE: I = 0.0048 · max(Vgk + Vpk/100, 0)^1.5</text>
+  <text class="note" x="58" y="667">DGRID: Is=1 nA, N=1.5, Rs=220 Ω, Cjo=2 pF · DCLAMP: Is=1 pA, N=1, Rs=0.1 Ω</text>
+  <text class="note" x="58" y="688">Training uses simulated V(plate); the quiescent plate voltage is removed and polarity restored after ngspice.</text>
+</svg>
