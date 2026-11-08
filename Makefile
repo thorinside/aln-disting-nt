@@ -34,7 +34,7 @@ FOLD_OBJECT := $(BUILD_DIR)/aln_fold_wavefolder.o
 DISTORTION_OBJECT := $(BUILD_DIR)/aln_distortion_bank.o
 SATURATION_OBJECT := $(BUILD_DIR)/aln_saturation.o
 
-.PHONY: all check-api test audio-test hardware inspect verify package clean
+.PHONY: all check-api test audio-test dylib hardware inspect verify package clean
 
 all: verify
 
@@ -107,6 +107,39 @@ $(SATURATION_OBJECT): $(SATURATION_COMPILED)
 	$(ARM_CXX) $(ARM_ARCH) -nostdlib -Wl,--relocatable "$<" -o "$@"
 
 hardware: $(FOLD_OBJECT) $(DISTORTION_OBJECT) $(SATURATION_OBJECT)
+
+# Native host builds for nt_emu / VCV Rack (not part of the hardware build)
+HOST_OS := $(shell uname -s)
+ifeq ($(HOST_OS),Darwin)
+	HOST_DYLIB_EXT := dylib
+	HOST_DYLIB_LDFLAGS := -dynamiclib -undefined dynamic_lookup
+else
+	HOST_DYLIB_EXT := so
+	HOST_DYLIB_LDFLAGS := -shared
+endif
+HOST_DYLIB_FLAGS := $(HOST_FLAGS) -fPIC
+FOLD_DYLIB := $(FOLD_DIR)/aln_fold_wavefolder.$(HOST_DYLIB_EXT)
+DISTORTION_DYLIB := $(DISTORTION_DIR)/aln_distortion_bank.$(HOST_DYLIB_EXT)
+SATURATION_DYLIB := $(SATURATION_DIR)/aln_saturation.$(HOST_DYLIB_EXT)
+
+$(FOLD_DYLIB): $(FOLD_DIR)/aln_fold_wavefolder.cpp $(FOLD_DIR)/aln_fold_core.h \
+		$(FOLD_DIR)/generated/aln_fold_models.h | check-api
+	$(HOST_CXX) $(HOST_DYLIB_FLAGS) -I"$(API_INCLUDE)" -I"$(FOLD_DIR)" \
+		$(HOST_DYLIB_LDFLAGS) -o "$@" $(FOLD_DIR)/aln_fold_wavefolder.cpp
+
+$(DISTORTION_DYLIB): $(DISTORTION_DIR)/aln_distortion_bank.cpp \
+		$(DISTORTION_DIR)/aln_distortion_core.h $(DISTORTION_DIR)/generated/aln_distortion_models.h | check-api
+	$(HOST_CXX) $(HOST_DYLIB_FLAGS) -I"$(API_INCLUDE)" -I"$(DISTORTION_DIR)" \
+		$(HOST_DYLIB_LDFLAGS) -o "$@" $(DISTORTION_DIR)/aln_distortion_bank.cpp
+
+$(SATURATION_DYLIB): $(SATURATION_DIR)/aln_saturation.cpp \
+		$(SATURATION_DIR)/aln_saturation_core.h \
+		$(SATURATION_DIR)/generated/aln_saturation_models.h | check-api
+	$(HOST_CXX) $(HOST_DYLIB_FLAGS) -I"$(API_INCLUDE)" -I"$(SATURATION_DIR)" \
+		$(HOST_DYLIB_LDFLAGS) -o "$@" $(SATURATION_DIR)/aln_saturation.cpp
+
+dylib: $(FOLD_DYLIB) $(DISTORTION_DYLIB) $(SATURATION_DYLIB)
+	@echo "Built host plugins: $^"
 
 inspect: hardware
 	ARM_NM="$(ARM_NM)" ARM_READELF="$(ARM_READELF)" ARM_SIZE="$(ARM_SIZE)" \
